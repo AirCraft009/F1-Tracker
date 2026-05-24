@@ -1,0 +1,391 @@
+/* Hero / Next Race Banner */
+.next-race-hero {
+    background: linear-gradient(135deg, #1c1020 0%, #12121a 50%, #1a1012 100%);
+    border: 1px solid var(--f1-border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 2.5rem;
+    position: relative;
+}
+
+.next-race-hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--f1-red);
+}
+
+.next-race-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 40px,
+            rgba(255,255,255,0.012) 40px,
+            rgba(255,255,255,0.012) 41px
+    );
+    pointer-events: none;
+}
+
+.race-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 0;
+    min-height: 460px;
+}
+
+.race-info-panel {
+    padding: 2.5rem 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+}
+
+.next-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--f1-red);
+    margin-bottom: 1.25rem;
+}
+
+.next-tag::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--f1-red);
+    border-radius: 50%;
+    animation: blink 1.2s ease-in-out infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.2; }
+}
+
+.race-round {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--f1-grey);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+}
+
+.race-name {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 3.2rem;
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.4rem;
+}
+
+.race-name .red { color: var(--f1-red); }
+
+.race-circuit-name {
+    font-size: 0.95rem;
+    color: var(--f1-grey);
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+}
+
+.race-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--f1-border);
+    border: 1px solid var(--f1-border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 1.75rem;
+}
+
+.meta-item {
+    background: var(--f1-card-2);
+    padding: 0.85rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.meta-label {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--f1-grey);
+}
+
+.meta-value {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--f1-white);
+    letter-spacing: 0.03em;
+}
+
+/* Session schedule */
+.schedule-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.schedule-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid var(--f1-border);
+}
+
+.schedule-list li:last-child { border-bottom: none; }
+
+.session-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-size: 0.88rem;
+}
+
+.session-name.race-session { color: var(--f1-red); }
+
+.session-date {
+    color: var(--f1-grey);
+    font-size: 0.85rem;
+}
+
+/* Map panel */
+.race-map-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.25);
+    border-left: 1px solid var(--f1-border);
+    padding: 2rem 1.5rem;
+    position: relative;
+}
+
+.map-label {
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--f1-grey);
+    margin-bottom: 1.25rem;
+    align-self: flex-start;
+}
+
+.track-svg-wrap {
+    width: 100%;
+    max-width: 380px;
+    filter: drop-shadow(0 0 24px rgba(232,0,45,0.18));
+}
+
+.circuit-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+.c-stat {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--f1-border);
+    border-radius: 3px;
+    padding: 0.6rem 0.75rem;
+}
+
+.c-stat-label {
+    font-family: var(--font-display);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--f1-grey);
+}
+
+.c-stat-val {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--f1-white);
+}
+
+/* ===== QUICK STANDINGS STRIPS ===== */
+.quick-standings-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+}
+
+.qs-card {
+    background: var(--f1-card);
+    border: 1px solid var(--f1-border);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.qs-header {
+    background: var(--f1-red);
+    padding: 0.6rem 1rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.qs-body {
+    padding: 0.25rem 0;
+}
+
+.qs-row {
+    display: flex;
+    align-items: center;
+    padding: 0.55rem 1rem;
+    border-bottom: 1px solid var(--f1-border);
+    gap: 0.75rem;
+}
+
+.qs-row:last-child { border-bottom: none; }
+
+.qs-pos {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: var(--f1-grey);
+    width: 28px;
+    flex-shrink: 0;
+}
+
+.qs-pos.p1 { color: #FFD700; }
+.qs-pos.p2 { color: var(--f1-grey); }
+.qs-pos.p3 { color: #CD7F32; }
+
+.qs-dot {
+    width: 4px;
+    height: 24px;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+.qs-name {
+    flex: 1;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.03em;
+}
+
+.qs-pts {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--f1-white);
+}
+
+/* ===== RACE CALENDAR STRIP ===== */
+.calendar-scroll {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    padding-bottom: 0.75rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--f1-red) var(--f1-card);
+}
+
+.calendar-scroll::-webkit-scrollbar { height: 4px; }
+.calendar-scroll::-webkit-scrollbar-track { background: var(--f1-card); }
+.calendar-scroll::-webkit-scrollbar-thumb { background: var(--f1-red); border-radius: 2px; }
+
+.race-chip {
+    flex-shrink: 0;
+    background: var(--f1-card);
+    border: 1px solid var(--f1-border);
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    min-width: 140px;
+    transition: border-color 0.2s;
+}
+
+.race-chip:hover { border-color: var(--f1-grey); }
+
+.race-chip.current { border-color: var(--f1-red); }
+.race-chip.next    { border-color: #FFD700; }
+.race-chip.done    { opacity: 0.55; }
+
+.chip-round {
+    font-family: var(--font-display);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--f1-grey);
+    margin-bottom: 0.2rem;
+}
+
+.chip-country {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    margin-bottom: 0.1rem;
+}
+
+.chip-date {
+    font-size: 0.78rem;
+    color: var(--f1-grey);
+}
+
+.chip-tag {
+    display: inline-block;
+    margin-top: 0.3rem;
+    font-family: var(--font-display);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.4rem;
+    border-radius: 2px;
+}
+
+.chip-tag.live    { background: var(--f1-red); color: #fff; }
+.chip-tag.next    { background: #FFD700; color: #000; }
+.chip-tag.sprint  { background: #6622cc; color: #fff; }
+
+/* Responsive */
+@media (max-width: 900px) {
+    .race-hero-grid { grid-template-columns: 1fr; }
+    .race-map-panel { border-left: none; border-top: 1px solid var(--f1-border); padding: 1.5rem; }
+    .track-svg-wrap { max-width: 320px; }
+    .race-name { font-size: 2.4rem; }
+    .quick-standings-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+    .race-meta-grid { grid-template-columns: repeat(2, 1fr); }
+    .race-name { font-size: 2rem; }
+}

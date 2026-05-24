@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1 Tracker — 2026 Season</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+
+<!-- ==================== HEADER ==================== -->
+<header class="site-header">
+    <div class="header-inner">
+        <a href="index.html" class="logo">
+            <!-- F1-style SVG logo mark -->
+            <svg class="logo-mark" viewBox="0 0 42 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="42" height="28" rx="2" fill="#E8002D"/>
+                <text x="5" y="20" font-family="Barlow Condensed, sans-serif" font-weight="900" font-size="17" fill="white" letter-spacing="1">F1</text>
+                <polygon points="28,7 38,7 38,21 28,21 33,14" fill="white"/>
+            </svg>
+            <span class="logo-text">F<span>1</span> Tracker</span>
+        </a>
+
+        <nav class="site-nav">
+            <a href="index.html"         class="nav-link active">Home</a>
+            <a href="drivers.html"       class="nav-link">Drivers</a>
+            <a href="constructors.html"  class="nav-link">Constructors</a>
+            <a href="results.html"       class="nav-link">Results</a>
+        </nav>
+
+        <div class="season-badge">2026 Season</div>
+    </div>
+</header>
+
+<!-- ==================== PAGE HERO ==================== -->
+<div class="page-hero">
+    <h1>Formula 1 World Championship · 2026</h1>
+</div>
+
+<!-- ==================== MAIN ==================== -->
+<main class="container">
+
+    <!-- ---- NEXT RACE CARD ---- -->
+    <div class="next-race-hero">
+        <div class="race-hero-grid">
+
+            <!-- Info panel -->
+            <div class="race-info-panel">
+                <div>
+                    <div class="next-tag">Up Next</div>
+                    <div class="race-round">Round 6 · 2026</div>
+                    <h2 class="race-name">Grand Prix<br><span class="red">de Monaco</span></h2>
+                    <p class="race-circuit-name">Circuit de Monaco · Principauté de Monaco</p>
+
+                    <div class="race-meta-grid">
+                        <div class="meta-item">
+                            <span class="meta-label">Date</span>
+                            <span class="meta-value">5–7 Jun</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Laps</span>
+                            <span class="meta-value">78</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Distance</span>
+                            <span class="meta-value">260 km</span>
+                        </div>
+                    </div>
+                </div>
+
+                <ul class="schedule-list">
+                    <li>
+                        <span class="session-name">Practice 1</span>
+                        <span class="session-date">Thu 5 Jun · 12:30</span>
+                    </li>
+                    <li>
+                        <span class="session-name">Practice 2</span>
+                        <span class="session-date">Thu 5 Jun · 16:00</span>
+                    </li>
+                    <li>
+                        <span class="session-name">Practice 3</span>
+                        <span class="session-date">Sat 6 Jun · 11:30</span>
+                    </li>
+                    <li>
+                        <span class="session-name">Qualifying</span>
+                        <span class="session-date">Sat 6 Jun · 15:00</span>
+                    </li>
+                    <li>
+                        <span class="session-name race-session">Race</span>
+                        <span class="session-date">Sun 7 Jun · 14:00</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Track map panel -->
+            <div class="race-map-panel">
+                <div class="map-label">Track Layout</div>
+
+                <!-- Monaco Circuit SVG -->
+                <div class="track-svg-wrap">
+                    <svg viewBox="0 0 340 480" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                            <linearGradient id="trackGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%"   stop-color="#E8002D"/>
+                                <stop offset="100%" stop-color="#ff4466"/>
+                            </linearGradient>
+                        </defs>
+
+                        <!-- Track outer glow -->
+                        <path d="
+                M 200 430
+                L 120 430
+                Q 85  430  72  415
+                Q 58  400  60  380
+                L 62  355
+                Q 63  340  75  332
+                L 110 315
+                Q 125 307  127 292
+                L 128 275
+                Q 128 258  112 252
+                L 85  245
+                Q 65  238  62  220
+                L 62  190
+                Q 62  168  80  158
+                L 115 145
+                Q 132 138  135 120
+                L 138 95
+                Q 140 72  158 62
+                L 185 55
+                Q 210 48  230 60
+                L 252 76
+                Q 268 88  268 108
+                L 266 128
+                Q 264 148  248 158
+                L 232 166
+                Q 216 175  215 192
+                L 215 215
+                Q 215 235  230 243
+                L 262 252
+                Q 285 259  292 278
+                L 295 310
+                Q 297 330  285 345
+                L 265 360
+                Q 255 370  255 385
+                L 255 410
+                Q 255 425  240 430
+                Z
+              "
+                              fill="none"
+                              stroke="rgba(232,0,45,0.15)"
+                              stroke-width="26"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"/>
+
+                        <!-- Main track path -->
+                        <path d="
+                M 200 430
+                L 120 430
+                Q 85  430  72  415
+                Q 58  400  60  380
+                L 62  355
+                Q 63  340  75  332
+                L 110 315
+                Q 125 307  127 292
+                L 128 275
+                Q 128 258  112 252
+                L 85  245
+                Q 65  238  62  220
+                L 62  190
+                Q 62  168  80  158
+                L 115 145
+                Q 132 138  135 120
+                L 138 95
+                Q 140 72  158 62
+                L 185 55
+                Q 210 48  230 60
+                L 252 76
+                Q 268 88  268 108
+                L 266 128
+                Q 264 148  248 158
+                L 232 166
+                Q 216 175  215 192
+                L 215 215
+                Q 215 235  230 243
+                L 262 252
+                Q 285 259  292 278
+                L 295 310
+                Q 297 330  285 345
+                L 265 360
+                Q 255 370  255 385
+                L 255 410
+                Q 255 425  240 430
+                Z
+              "
+                              fill="none"
+                              stroke="url(#trackGrad)"
+                              stroke-width="10"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              filter="url(#glow)"/>
+
+                        <!-- Start/Finish line -->
+                        <line x1="200" y1="421" x2="200" y2="439" stroke="white" stroke-width="3" stroke-dasharray="4 3"/>
+                        <rect x="196" y="416" width="8" height="18" fill="white" opacity="0.2" rx="1"/>
+
+                        <!-- Corner labels -->
+                        <!-- Sainte Devote -->
+                        <circle cx="62" cy="380" r="4" fill="var(--f1-red)" opacity="0.9"/>
+                        <text x="30" y="383" font-family="Barlow Condensed, sans-serif" font-size="9" fill="#8a8a9a" font-weight="700">STE DEVOTE</text>
+
+                        <!-- Loews hairpin -->
+                        <circle cx="62" cy="205" r="4" fill="var(--f1-red)" opacity="0.9"/>
+                        <text x="20" y="208" font-family="Barlow Condensed, sans-serif" font-size="9" fill="#8a8a9a" font-weight="700">LOEWS</text>
+
+                        <!-- Casino -->
+                        <circle cx="185" cy="55" r="4" fill="var(--f1-red)" opacity="0.9"/>
+                        <text x="192" y="51" font-family="Barlow Condensed, sans-serif" font-size="9" fill="#8a8a9a" font-weight="700">CASINO</text>
+
+                        <!-- Tunnel -->
+                        <circle cx="268" cy="108" r="4" fill="#666" opacity="0.9"/>
+                        <text x="274" y="112" font-family="Barlow Condensed, sans-serif" font-size="9" fill="#8a8a9a" font-weight="700">TUNNEL</text>
+
+                        <!-- Rascasse -->
+                        <circle cx="255" cy="410" r="4" fill="var(--f1-red)" opacity="0.9"/>
+                        <text x="262" y="413" font-family="Barlow Condensed, sans-serif" font-size="9" fill="#8a8a9a" font-weight="700">RASCASSE</text>
+
+                        <!-- Swimming pool label -->
+                        <circle cx="292" cy="278" r="4" fill="var(--f1-red)" opacity="0.9"/>
+                        <text x="298" y="282" font-family="Barlow Condensed, sans-serif" font-size="9" fill="#8a8a9a" font-weight="700">POOL</text>
+
+                        <!-- S/F flag label -->
+                        <text x="205" y="442" font-family="Barlow Condensed, sans-serif" font-size="9" fill="white" font-weight="700" opacity="0.7">S/F</text>
+
+                        <!-- Direction arrow on straight -->
+                        <polygon points="165,430 160,424 170,424" fill="var(--f1-red)" opacity="0.7"/>
+
+                        <!-- Circuit name -->
+                        <text x="170" y="240" font-family="Barlow Condensed, sans-serif" font-size="11" fill="#2e2e3e" font-weight="900" text-anchor="middle" letter-spacing="2">MONACO</text>
+                    </svg>
+                </div>
+
+                <!-- Circuit stats -->
+                <div class="circuit-stats">
+                    <div class="c-stat">
+                        <div class="c-stat-label">Lap Record</div>
+                        <div class="c-stat-val">1:10.166</div>
+                    </div>
+                    <div class="c-stat">
+                        <div class="c-stat-label">Record By</div>
+                        <div class="c-stat-val">L. Hamilton</div>
+                    </div>
+                    <div class="c-stat">
+                        <div class="c-stat-label">Turns</div>
+                        <div class="c-stat-val">19</div>
+                    </div>
+                    <div class="c-stat">
+                        <div class="c-stat-label">Lap Length</div>
+                        <div class="c-stat-val">3.337 km</div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /.race-hero-grid -->
+    </div><!-- /.next-race-hero -->
+
+
+    <!-- ---- QUICK STANDINGS ---- -->
+    <div class="section-title">Championship <span>Snapshot</span></div>
+    <p class="section-sub">After Round 5 Sprint · Canadian Grand Prix</p>
+
+    <div class="quick-standings-grid">
+
+        <!-- Drivers top 3 -->
+        <div class="qs-card">
+            <div class="qs-header">Drivers' Top 5</div>
+            <div class="qs-body">
+                <div class="qs-row">
+                    <span class="qs-pos p1">1</span>
+                    <span class="qs-dot team-mercedes"></span>
+                    <span class="qs-name">K. Antonelli</span>
+                    <span class="qs-pts">106</span>
+                </div>
+                <div class="qs-row">
+                    <span class="qs-pos p2">2</span>
+                    <span class="qs-dot team-mercedes"></span>
+                    <span class="qs-name">G. Russell</span>
+                    <span class="qs-pts">88</span>
+                </div>
+                <div class="qs-row">
+                    <span class="qs-pos p3">3</span>
+                    <span class="qs-dot team-ferrari"></span>
+                    <span class="qs-name">C. Leclerc</span>
+                    <span class="qs-pts">65</span>
+                </div>
+                <div class="qs-row">
+                    <span class="qs-pos">4</span>
+                    <span class="qs-dot team-mclaren"></span>
+                    <span class="qs-name">L. Norris</span>
+                    <span class="qs-pts">60</span>
+                </div>
+                <div class="qs-row">
+                    <span class="qs-pos">5</span>
+                    <span class="qs-dot team-ferrari"></span>
+                    <span class="qs-name">L. Hamilton</span>
+                    <span class="qs-pts">54</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Constructors top 3 -->
+        <div class="qs-card">
+            <div class="qs-header">Constructors' Top 5</div>
+            <div class="qs-body">
+                <div class="qs-row">
+                    <span class="qs-pos p1">1</span>
+                    <span class="qs-dot team-mercedes"></span>
+                    <span class="qs-name">Mercedes</span>
+                    <span class="qs-pts">194</span>
+                </div>
+                <div class="qs-row">
+                    <span class="qs-pos p2">2</span>
+                    <span class="qs-dot team-ferrari"></span>
+                    <span class="qs-name">Ferrari</span>
+                    <span class="qs-pts">119</span>
+                </div>
+                <div class="qs-row">
+                    <span class="qs-pos p3">3</span>
+                    <span class="qs-dot team-mclaren"></span>
+                    <span class="qs-name">McLaren</span>
+                    <span class="qs-pts">108</span>
+                </div>
+                <div class="qs-row">
+                    <span class="qs-pos">4</span>
+                    <span class="qs-dot team-redbull"></span>
+                    <span class="qs-name">Red Bull</span>
+                    <span class="qs-pts">38</span>
+                </div>
+                <div class="qs-row">
+                    <span class="qs-pos">5</span>
+                    <span class="qs-dot team-haas"></span>
+                    <span class="qs-name">Haas</span>
+                    <span class="qs-pts">21</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Latest result -->
+        <div class="qs-card">
+            <div class="qs-header">Latest · Canada Sprint</div>
+            <div class="qs-body">
+                <div class="qs-row">
+                    <span class="qs-pos p1">1</span>
+                    <span class="qs-dot team-mercedes"></span>
+                    <span class="qs-name">G. Russell</span>
+                    <span class="qs-pts">+0.000</span>
+                </div>
+                <div class="qs-row">
+                    <span class="qs-pos p2">2</span>
+                    <span class="qs-dot team-mclaren"></span>
+                    <span class="qs-name">L. Norris</span>
+                    <span class="qs-pts">+1.272</span>
+                </div>
+                <div class="qs-row">
+                    <span class="qs-pos p3">3</span>
+                    <span class="qs-dot team-mercedes"></span>
+                    <span class="qs-name">K. Antonelli</span>
+                    <span class="qs-pts">+1.843</span>
+                </div>
+                <div class="qs-row">
+                    <span class="qs-pos">4</span>
+                    <span class="qs-dot team-mclaren"></span>
+                    <span class="qs-name">O. Piastri</span>
+                    <span class="qs-pts">+9.797</span>
+                </div>
+                <div class="qs-row">
+                    <span class="qs-pos">5</span>
+                    <span class="qs-dot team-ferrari"></span>
+                    <span class="qs-name">C. Leclerc</span>
+                    <span class="qs-pts">+14.4</span>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /.quick-standings-grid -->
+
+
+    <!-- ---- RACE CALENDAR ---- -->
+    <div class="section-title">Race <span>Calendar</span></div>
+    <p class="section-sub">2026 FIA Formula 1 World Championship — 22 Rounds</p>
+
+    <div class="calendar-scroll">
+
+        <div class="race-chip done">
+            <div class="chip-round">Round 1</div>
+            <div class="chip-country">Australia</div>
+            <div class="chip-date">6–8 Mar 2026</div>
+        </div>
+        <div class="race-chip done">
+            <div class="chip-round">Round 2</div>
+            <div class="chip-country">China</div>
+            <div class="chip-date">13–15 Mar</div>
+            <span class="chip-tag sprint">Sprint</span>
+        </div>
+        <div class="race-chip done">
+            <div class="chip-round">Round 3</div>
+            <div class="chip-country">Japan</div>
+            <div class="chip-date">27–29 Mar</div>
+        </div>
+        <div class="race-chip done">
+            <div class="chip-round">Round 4</div>
+            <div class="chip-country">Miami</div>
+            <div class="chip-date">1–3 May</div>
+            <span class="chip-tag sprint">Sprint</span>
+        </div>
+        <div class="race-chip current">
+            <div class="chip-round">Round 5</div>
+            <div class="chip-country">Canada</div>
+            <div class="chip-date">22–24 May</div>
+            <span class="chip-tag live">LIVE</span>
+        </div>
+        <div class="race-chip next">
+            <div class="chip-round">Round 6</div>
+            <div class="chip-country">Monaco</div>
+            <div class="chip-date">5–7 Jun</div>
+            <span class="chip-tag next">Next</span>
+        </div>
+        <div class="race-chip">
+            <div class="chip-round">Round 7</div>
+            <div class="chip-country">Spain</div>
+            <div class="chip-date">12–14 Jun</div>
+        </div>
+        <div class="race-chip">
+            <div class="chip-round">Round 8</div>
+            <div class="chip-country">Austria</div>
+            <div class="chip-date">26–28 Jun</div>
+        </div>
+        <div class="race-chip">
+            <div class="chip-round">Round 9</div>
+            <div class="chip-country">Britain</div>
+            <div class="chip-date">3–5 Jul</div>
+            <span class="chip-tag sprint">Sprint</span>
+        </div>
+        <div class="race-chip">
+            <div class="chip-round">Round 10</div>
+            <div class="chip-country">Belgium</div>
+            <div class="chip-date">17–19 Jul</div>
+        </div>
+        <div class="race-chip">
+            <div class="chip-round">Round 11</div>
+            <div class="chip-country">Hungary</div>
+            <div class="chip-date">24–26 Jul</div>
+        </div>
+        <div class="race-chip">
+            <div class="chip-round">Round 12</div>
+            <div class="chip-country">Netherlands</div>
+            <div class="chip-date">21–23 Aug</div>
+            <span class="chip-tag sprint">Sprint</span>
+        </div>
+        <div class="race-chip">
+            <div class="chip-round">Round 13</div>
+            <div class="chip-country">Italy</div>
+            <div class="chip-date">4–6 Sep</div>
+        </div>
+        <div class="race-chip">
+            <div class="chip-round">Round 14</div>
+            <div class="chip-country">Madrid</div>
+            <div class="chip-date">12–14 Sep</div>
+        </div>
+        <div class="race-chip">
+            <div class="chip-round">Round 15</div>
+            <div class="chip-country">Azerbaijan</div>
+            <div class="chip-date">24–26 Sep</div>
+        </div>
+        <div class="race-chip">
+            <div class="chip-round">Round 16</div>
+            <div class="chip-country">Singapore</div>
+            <div class="chip-date">9–11 Oct</div>
+            <span class="chip-tag sprint">Sprint</span>
+        </div>
+        <div class="race-chip">
+            <div class="chip-round">Round 17</div>
+            <div class="chip-country">USA</div>
+            <div class="chip-date">23–25 Oct</div>
+        </div>
+        <div class="race-chip">
+            <div class="chip-round">Round 18</div>
+            <div class="chip-country">Mexico</div>
+            <div class="chip-date">31 Oct–2 Nov</div>
+        </div>
+        <div class="race-chip">
+            <div class="chip-round">Round 19</div>
+            <div class="chip-country">Brazil</div>
+            <div class="chip-date">13–15 Nov</div>
+        </div>
+        <div class="race-chip">
+            <div class="chip-round">Round 20</div>
+            <div class="chip-country">Las Vegas</div>
+            <div class="chip-date">19–21 Nov</div>
+        </div>
+        <div class="race-chip">
+            <div class="chip-round">Round 21</div>
+            <div class="chip-country">Qatar</div>
+            <div class="chip-date">27–29 Nov</div>
+        </div>
+        <div class="race-chip">
+            <div class="chip-round">Round 22</div>
+            <div class="chip-country">Abu Dhabi</div>
+            <div class="chip-date">5–7 Dec</div>
+        </div>
+
+    </div><!-- /.calendar-scroll -->
+
+</main>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="site-footer">
+    F1 Tracker · 2026 FIA Formula 1 World Championship · All times local
+</footer>
+
+</body>
+</html>
