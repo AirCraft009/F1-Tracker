@@ -1,0 +1,402 @@
+[
+  {
+    "circuitId": "yas_marina",
+    "name": "Yas Marina Circuit",
+    "country": "UAE",
+    "city": "Abu Dhabi",
+    "length_km": 5.281,
+    "turns": 16,
+    "laps": 58,
+    "geojson": "/resources/bacinger-f1-circuits/ae-2009.geojson"
+  },
+  {
+    "circuitId": "buenos_aires",
+    "name": "Autódromo Oscar y Juan Gálvez",
+    "country": "Argentina",
+    "city": "Buenos Aires",
+    "length_km": 4.259,
+    "turns": 14,
+    "laps": 72,
+    "geojson": "/resources/bacinger-f1-circuits/ar-1952.geojson"
+  },
+  {
+    "circuitId": "red_bull_ring",
+    "name": "Red Bull Ring",
+    "country": "Austria",
+    "city": "Spielberg",
+    "length_km": 4.318,
+    "turns": 10,
+    "laps": 71,
+    "geojson": "/resources/bacinger-f1-circuits/at-1969.geojson"
+  },
+  {
+    "circuitId": "albert_park",
+    "name": "Albert Park Circuit",
+    "country": "Australia",
+    "city": "Melbourne",
+    "length_km": 5.278,
+    "turns": 16,
+    "laps": 58,
+    "geojson": "/resources/bacinger-f1-circuits/au-1953.geojson"
+  },
+  {
+    "circuitId": "baku",
+    "name": "Baku City Circuit",
+    "country": "Azerbaijan",
+    "city": "Baku",
+    "length_km": 6.003,
+    "turns": 20,
+    "laps": 51,
+    "geojson": "/resources/bacinger-f1-circuits/az-2016.geojson"
+  },
+  {
+    "circuitId": "spa",
+    "name": "Circuit de Spa-Francorchamps",
+    "country": "Belgium",
+    "city": "Spa-Francorchamps",
+    "length_km": 7.004,
+    "turns": 19,
+    "laps": 44,
+    "geojson": "/resources/bacinger-f1-circuits/be-1925.geojson"
+  },
+  {
+    "circuitId": "bahrain",
+    "name": "Bahrain International Circuit",
+    "country": "Bahrain",
+    "city": "Sakhir",
+    "length_km": 5.412,
+    "turns": 15,
+    "laps": 57,
+    "geojson": "/resources/bacinger-f1-circuits/bh-2002.geojson"
+  },
+  {
+    "circuitId": "interlagos",
+    "name": "Autódromo José Carlos Pace",
+    "country": "Brazil",
+    "city": "São Paulo",
+    "length_km": 4.309,
+    "turns": 15,
+    "laps": 71,
+    "geojson": "/resources/bacinger-f1-circuits/br-1940.geojson"
+  },
+  {
+    "circuitId": "jacarepagua",
+    "name": "Autódromo Internacional Nelson Piquet",
+    "country": "Brazil",
+    "city": "Jacarepaguá",
+    "length_km": 5.031,
+    "turns": 14,
+    "laps": 61,
+    "geojson": "/resources/bacinger-f1-circuits/br-1977.geojson"
+  },
+  {
+    "circuitId": "villeneuve",
+    "name": "Circuit Gilles-Villeneuve",
+    "country": "Canada",
+    "city": "Montreal",
+    "length_km": 4.361,
+    "turns": 14,
+    "laps": 70,
+    "geojson": "/resources/bacinger-f1-circuits/ca-1978.geojson"
+  },
+  {
+    "circuitId": "shanghai",
+    "name": "Shanghai International Circuit",
+    "country": "China",
+    "city": "Shanghai",
+    "length_km": 5.451,
+    "turns": 16,
+    "laps": 56,
+    "geojson": "/resources/bacinger-f1-circuits/cn-2004.geojson"
+  },
+  {
+    "circuitId": "hockenheim",
+    "name": "Hockenheimring",
+    "country": "Germany",
+    "city": "Hockenheim",
+    "length_km": 4.574,
+    "turns": 17,
+    "laps": 67,
+    "geojson": "/resources/bacinger-f1-circuits/de-1932.geojson"
+  },
+  {
+    "circuitId": "nurburgring",
+    "name": "Nürburgring",
+    "country": "Germany",
+    "city": "Nürburg",
+    "length_km": 5.148,
+    "turns": 15,
+    "laps": 60,
+    "geojson": "/resources/bacinger-f1-circuits/de-1927.geojson"
+  },
+  {
+    "circuitId": "catalunya",
+    "name": "Circuit de Barcelona-Catalunya",
+    "country": "Spain",
+    "city": "Barcelona",
+    "length_km": 4.655,
+    "turns": 14,
+    "laps": 66,
+    "geojson": "/resources/bacinger-f1-circuits/es-1991.geojson"
+  },
+  {
+    "circuitId": "madrid",
+    "name": "Circuito de Madring",
+    "country": "Spain",
+    "city": "Madrid",
+    "length_km": 5.538,
+    "turns": 20,
+    "laps": 55,
+    "geojson": "/resources/bacinger-f1-circuits/es-2026.geojson"
+  },
+  {
+    "circuitId": "paul_ricard",
+    "name": "Circuit Paul Ricard",
+    "country": "France",
+    "city": "Le Castellet",
+    "length_km": 5.842,
+    "turns": 15,
+    "laps": 53,
+    "geojson": "/resources/bacinger-f1-circuits/fr-1969.geojson"
+  },
+  {
+    "circuitId": "magny_cours",
+    "name": "Circuit de Nevers Magny-Cours",
+    "country": "France",
+    "city": "Magny-Cours",
+    "length_km": 4.411,
+    "turns": 17,
+    "laps": 70,
+    "geojson": "/resources/bacinger-f1-circuits/fr-1960.geojson"
+  },
+  {
+    "circuitId": "silverstone",
+    "name": "Silverstone Circuit",
+    "country": "United Kingdom",
+    "city": "Silverstone",
+    "length_km": 5.891,
+    "turns": 18,
+    "laps": 52,
+    "geojson": "/resources/bacinger-f1-circuits/gb-1948.geojson"
+  },
+  {
+    "circuitId": "hungaroring",
+    "name": "Hungaroring",
+    "country": "Hungary",
+    "city": "Budapest",
+    "length_km": 4.381,
+    "turns": 14,
+    "laps": 70,
+    "geojson": "/resources/bacinger-f1-circuits/hu-1986.geojson"
+  },
+  {
+    "circuitId": "monza",
+    "name": "Autodromo Nazionale Monza",
+    "country": "Italy",
+    "city": "Monza",
+    "length_km": 5.793,
+    "turns": 11,
+    "laps": 53,
+    "geojson": "/resources/bacinger-f1-circuits/it-1922.geojson"
+  },
+  {
+    "circuitId": "imola",
+    "name": "Autodromo Enzo e Dino Ferrari",
+    "country": "Italy",
+    "city": "Imola",
+    "length_km": 4.909,
+    "turns": 19,
+    "laps": 63,
+    "geojson": "/resources/bacinger-f1-circuits/it-1953.geojson"
+  },
+  {
+    "circuitId": "mugello",
+    "name": "Autodromo Internazionale del Mugello",
+    "country": "Italy",
+    "city": "Scarperia e San Piero",
+    "length_km": 5.245,
+    "turns": 15,
+    "laps": 59,
+    "geojson": "/resources/bacinger-f1-circuits/it-1914.geojson"
+  },
+  {
+    "circuitId": "suzuka",
+    "name": "Suzuka International Racing Course",
+    "country": "Japan",
+    "city": "Suzuka",
+    "length_km": 5.807,
+    "turns": 18,
+    "laps": 53,
+    "geojson": "/resources/bacinger-f1-circuits/jp-1962.geojson"
+  },
+  {
+    "circuitId": "monaco",
+    "name": "Circuit de Monaco",
+    "country": "Monaco",
+    "city": "Monaco",
+    "length_km": 3.337,
+    "turns": 19,
+    "laps": 78,
+    "geojson": "/resources/bacinger-f1-circuits/mc-1929.geojson"
+  },
+  {
+    "circuitId": "mexico_city",
+    "name": "Autódromo Hermanos Rodríguez",
+    "country": "Mexico",
+    "city": "Mexico City",
+    "length_km": 4.304,
+    "turns": 17,
+    "laps": 71,
+    "geojson": "/resources/bacinger-f1-circuits/mx-1962.geojson"
+  },
+  {
+    "circuitId": "sepang",
+    "name": "Sepang International Circuit",
+    "country": "Malaysia",
+    "city": "Sepang",
+    "length_km": 5.543,
+    "turns": 15,
+    "laps": 56,
+    "geojson": "/resources/bacinger-f1-circuits/my-1999.geojson"
+  },
+  {
+    "circuitId": "zandvoort",
+    "name": "Circuit Zandvoort",
+    "country": "Netherlands",
+    "city": "Zandvoort",
+    "length_km": 4.259,
+    "turns": 14,
+    "laps": 72,
+    "geojson": "/resources/bacinger-f1-circuits/nl-1948.geojson"
+  },
+  {
+    "circuitId": "estoril",
+    "name": "Autódromo do Estoril",
+    "country": "Portugal",
+    "city": "Estoril",
+    "length_km": 4.182,
+    "turns": 13,
+    "laps": 71,
+    "geojson": "/resources/bacinger-f1-circuits/pt-1972.geojson"
+  },
+  {
+    "circuitId": "portimao",
+    "name": "Autódromo Internacional do Algarve",
+    "country": "Portugal",
+    "city": "Portimão",
+    "length_km": 4.684,
+    "turns": 15,
+    "laps": 66,
+    "geojson": "/resources/bacinger-f1-circuits/pt-2008.geojson"
+  },
+  {
+    "circuitId": "losail",
+    "name": "Losail International Circuit",
+    "country": "Qatar",
+    "city": "Lusail",
+    "length_km": 5.380,
+    "turns": 16,
+    "laps": 57,
+    "geojson": "/resources/bacinger-f1-circuits/qa-2004.geojson"
+  },
+  {
+    "circuitId": "sochi",
+    "name": "Sochi Autodrom",
+    "country": "Russia",
+    "city": "Sochi",
+    "length_km": 5.848,
+    "turns": 18,
+    "laps": 53,
+    "geojson": "/resources/bacinger-f1-circuits/ru-2014.geojson"
+  },
+  {
+    "circuitId": "jeddah",
+    "name": "Jeddah Corniche Circuit",
+    "country": "Saudi Arabia",
+    "city": "Jeddah",
+    "length_km": 6.174,
+    "turns": 27,
+    "laps": 50,
+    "geojson": "/resources/bacinger-f1-circuits/sa-2021.geojson"
+  },
+  {
+    "circuitId": "singapore",
+    "name": "Marina Bay Street Circuit",
+    "country": "Singapore",
+    "city": "Singapore",
+    "length_km": 4.940,
+    "turns": 23,
+    "laps": 62,
+    "geojson": "/resources/bacinger-f1-circuits/sg-2008.geojson"
+  },
+  {
+    "circuitId": "istanbul",
+    "name": "Intercity Istanbul Park",
+    "country": "Turkey",
+    "city": "Istanbul",
+    "length_km": 5.338,
+    "turns": 14,
+    "laps": 58,
+    "geojson": "/resources/bacinger-f1-circuits/tr-2005.geojson"
+  },
+  {
+    "circuitId": "circuit_of_americas",
+    "name": "Circuit of the Americas",
+    "country": "United States",
+    "city": "Austin",
+    "length_km": 5.513,
+    "turns": 20,
+    "laps": 56,
+    "geojson": "/resources/bacinger-f1-circuits/us-2012.geojson"
+  },
+  {
+    "circuitId": "miami",
+    "name": "Miami International Autodrome",
+    "country": "United States",
+    "city": "Miami",
+    "length_km": 5.412,
+    "turns": 19,
+    "laps": 57,
+    "geojson": "/resources/bacinger-f1-circuits/us-2022.geojson"
+  },
+  {
+    "circuitId": "las_vegas",
+    "name": "Las Vegas Street Circuit",
+    "country": "United States",
+    "city": "Las Vegas",
+    "length_km": 6.201,
+    "turns": 17,
+    "laps": 50,
+    "geojson": "/resources/bacinger-f1-circuits/us-2023.geojson"
+  },
+  {
+    "circuitId": "indianapolis",
+    "name": "Indianapolis Motor Speedway",
+    "country": "United States",
+    "city": "Indianapolis",
+    "length_km": 4.192,
+    "turns": 13,
+    "laps": 73,
+    "geojson": "/resources/bacinger-f1-circuits/us-1909.geojson"
+  },
+  {
+    "circuitId": "watkins_glen",
+    "name": "Watkins Glen International",
+    "country": "United States",
+    "city": "Watkins Glen",
+    "length_km": 5.435,
+    "turns": 11,
+    "laps": 59,
+    "geojson": "/resources/bacinger-f1-circuits/us-1956.geojson"
+  },
+  {
+    "circuitId": "kyalami",
+    "name": "Kyalami Grand Prix Circuit",
+    "country": "South Africa",
+    "city": "Johannesburg",
+    "length_km": 4.261,
+    "turns": 16,
+    "laps": 72,
+    "geojson": "/resources/bacinger-f1-circuits/za-1961.geojson"
+  }
+]
