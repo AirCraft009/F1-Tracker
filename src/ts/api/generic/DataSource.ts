@@ -1,8 +1,8 @@
 export interface F1DataSource {
     getDrivers(): Promise<Driver[]>;                        // gets all current drivers
-    getDrivers(season: number): Promise<Driver[]>;          // gets all drivers in a season
+    getDriversInSeason(season: number): Promise<Driver[]>;          // gets all drivers in a season
     getRaceResults(season: number): Promise<RaceResult[]>;
-    getDriverById(id: string): Promise<Driver>;
+    getDriverById(id: string): Promise<void>;
     getDriverStandings(season: number): Promise<DriverStanding[]>;
 }
 

@@ -4,9 +4,10 @@ import {Circuit} from "../api/generic/DataSource";
 const width = 340;
 const height = 480;
 const trackCount = 40;
+const TrackPath = "/resources/TrackData.json"
 
 export async function drawCircuit(circ: Circuit, appendElem: string){
-    let trackJson = await fetch("/resources/TrackData.json").then((res) => res.json());
+    let trackJson = await fetch(TrackPath).then((res) => res.json());
     for (let i = 0; i < trackCount; i++) {
         if(trackJson[i].circuitId == circ.id){
             await drawSvgTrack(trackJson.geojson, appendElem);
