@@ -16,6 +16,16 @@ export async function drawCircuit(circ: Circuit, appendElem: string){
     }
 }
 
+export async function drawCircuitId(id: string, appendElem: string){
+    let trackJson = await fetch(TrackPath).then((res) => res.json());
+    for (let i = 0; i < trackCount; i++) {
+        if(trackJson[i].circuitId == id){
+            await drawSvgTrack(trackJson.geojson, appendElem);
+            return;
+        }
+    }
+}
+
 
 async function drawSvgTrack(geoJsonPath: string, appendElem: string): Promise<void> {
     const svg_D3 = d3.select(appendElem)

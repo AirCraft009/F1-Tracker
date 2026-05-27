@@ -3,13 +3,20 @@
 
 import {Driver, DriverStanding, F1DataSource, RaceResult} from "../generic/DataSource";
 import {concatPaths} from "../../util/pathBuild";
-import {JolpicaDriver, JolpicaDriverResponse} from "./jolpicaMapper";
+import {
+    JolpicaDriverResponse,
+    JolpicaDriverStandingResponse,
+    mapJolpicaDriver,
+    mapJolpicaDriverStanding
+} from "./jolpicaMapper";
+import path from "node:path";
 const JolpicaBase = "https://api.jolpi.ca/ergast/f1/"
 
 
 class JolpicaF1DataSource implements  F1DataSource {
-    static driverMod = "drivers"
-    static resultMod = "results"
+    static driverMod    = "drivers"
+    static resultMod    = "results"
+    static dStandingsMod= "driverstandings"
     retries: number
     delay: number
 
@@ -29,11 +36,11 @@ class JolpicaF1DataSource implements  F1DataSource {
         this.delay = delay
     }
 
-
-    async getDriverById(id: string): Promise<void> {
+    async retryLoop(path: string): Promise<Response>{
         let res : Response | undefined = undefined;
+        console.log(path)
         for (let i = 0; i < this.retries + 1; i++) {
-            res = await fetch(concatPaths(JolpicaBase, JolpicaF1DataSource.driverMod, id))
+            res = await fetch(path)
             if (!res.ok) {
                 console.error("API call failed: ", res.statusText);
 
@@ -54,22 +61,46 @@ class JolpicaF1DataSource implements  F1DataSource {
         if(!res){
             throw new Error("Response shouldn't be undefined. Illegal State Check getDriverById logic")
         }
+        return Promise.resolve(res);
+    }
 
+
+    async getDriverById(id: string): Promise<Driver> {
+        let res = await this.retryLoop(concatPaths(JolpicaBase, JolpicaF1DataSource.driverMod, id));
         let driverRes : JolpicaDriverResponse = await res.json()
         // only one driver should exist if one id is queried
         if(driverRes.MRData.DriverTable.Drivers.length != 1){
             throw new Error("More than one driver returned on ID query.")
         }
 
-        return
+        return Promise.resolve(mapJolpicaDriver(driverRes.MRData.DriverTable.Drivers[0]))
     }
 
-    getDriverStandings(season: number): Promise<DriverStanding[]> {
-        return Promise.resolve([]);
+    async getDriverStandings(season: number): Promise<DriverStanding[]> {
+        let res = await this.retryLoop(concatPaths(JolpicaBase, String(season), JolpicaF1DataSource.dStandingsMod))
+        let standingRes : JolpicaDriverStandingResponse = await res.json();
+
+        let len = standingRes.MRData.StandingsTable.StandingsLists[0].DriverStandings.length;
+        let standings : DriverStanding[] = new Array<DriverStanding>(len);
+
+        for (let i = 0; i < len; i++) {
+            standings[i] = mapJolpicaDriverStanding(standingRes.MRData.StandingsTable.StandingsLists[0].DriverStandings[i]);
+        }
+
+        return Promise.resolve(standings);
     }
 
-    getDrivers(): Promise<Driver[]> {
-        return Promise.resolve([]);
+    async getDrivers(): Promise<Driver[]> {
+        let res = await this.retryLoop(concatPaths(JolpicaBase, JolpicaF1DataSource.driverMod));
+        let driverRes : JolpicaDriverResponse = await res.json()
+
+        let len = driverRes.MRData.DriverTable.Drivers.length;
+        let drivers : Driver[] = new Array<Driver>(len);
+
+        for (let i = 0; i < len; i++) {
+            drivers[i] = mapJolpicaDriver(driverRes.MRData.DriverTable.Drivers[i]);
+        }
+        return Promise.resolve(drivers);
     }
 
     getDriversInSeason(season: number): Promise<Driver[]> {
@@ -83,7 +114,9 @@ class JolpicaF1DataSource implements  F1DataSource {
 
 main()
 
-function main() {
+async function main() {
     let f = new JolpicaF1DataSource(0, 200);
-    f.getDriverById("verstappen");
+    console.log(await f.getDriverById("max_verstappen"));
+    console.log(await f.getDrivers());
+    console.log(await f.getDriverStandings(2024))
 }

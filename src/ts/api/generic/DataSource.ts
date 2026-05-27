@@ -2,7 +2,7 @@ export interface F1DataSource {
     getDrivers(): Promise<Driver[]>;                        // gets all current drivers
     getDriversInSeason(season: number): Promise<Driver[]>;          // gets all drivers in a season
     getRaceResults(season: number): Promise<RaceResult[]>;
-    getDriverById(id: string): Promise<void>;
+    getDriverById(id: string): Promise<Driver>;
     getDriverStandings(season: number): Promise<DriverStanding[]>;
 }
 
@@ -18,8 +18,8 @@ export type Driver = {
     driverId: string;
     firstName: string;
     lastName: string;
-    num: number;
-    birthDate: string;
+    num?: number;
+    birthDate?: string;
     nationality?: string;
 }
 
