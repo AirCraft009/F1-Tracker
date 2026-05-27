@@ -4,23 +4,23 @@ import {Circuit} from "../api/generic/DataSource";
 const width = 340;
 const height = 480;
 const trackCount = 40;
-const TrackPath = "/resources/TrackData.json"
+const TrackPath = "/TrackData.json"
 
+/**
+ * draws the circuit as svg
+ * @param circ
+ * @param appendElem the element the svg will be appended on (querySelector)
+ */
 export async function drawCircuit(circ: Circuit, appendElem: string){
-    let trackJson = await fetch(TrackPath).then((res) => res.json());
-    for (let i = 0; i < trackCount; i++) {
-        if(trackJson[i].circuitId == circ.id){
-            await drawSvgTrack(trackJson.geojson, appendElem);
-            return;
-        }
-    }
+    await drawCircuitId(circ.id, appendElem);
 }
 
 export async function drawCircuitId(id: string, appendElem: string){
-    let trackJson = await fetch(TrackPath).then((res) => res.json());
+    let trackRes = await fetch(TrackPath);
+    let trackJson = await trackRes.json();
     for (let i = 0; i < trackCount; i++) {
         if(trackJson[i].circuitId == id){
-            await drawSvgTrack(trackJson.geojson, appendElem);
+            await drawSvgTrack(trackJson[i].geojson, appendElem);
             return;
         }
     }
@@ -34,7 +34,8 @@ async function drawSvgTrack(geoJsonPath: string, appendElem: string): Promise<vo
         .attr("height", height);
 
     // load the GeoJSON data
-    const geo = await fetch(geoJsonPath).then(r => r.json());
+    const geoRes = await fetch(geoJsonPath)
+    const geo = await geoRes.json();
 
     // projection (maps lat/lon → screen)
     const projection = d3.geoMercator()
@@ -49,4 +50,17 @@ async function drawSvgTrack(geoJsonPath: string, appendElem: string): Promise<vo
         .attr("fill", "none")
         .attr("stroke", "black")
         .attr("stroke-width", 2);
+}
+
+function addFiltersToSvg(): void {
+    document.querySelectorAll("svg").forEach(el => {
+        el.appendChild(document.createElement("defs"))
+    })
+
+    document.querySelectorAll("defs").forEach(el => {
+        el.appendChild(
+            document.createElement("filter")
+
+        )
+    })
 }
