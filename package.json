@@ -2,9 +2,11 @@
   "name": "f1-tracker",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "src/main.ts",
   "scripts": {
-    "build": "tsc"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "d3": "^7.9.0"
@@ -13,7 +15,8 @@
     "@types/d3": "^7.4.3",
     "@types/node": "^25.9.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vite": "^8.0.14"
   },
   "private": true,
   "repository": {
@@ -23,7 +26,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/AirCraft009/F1-Tracker/issues"
   },

@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>F1 Tracker — 2026 Season</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/css/index.css">
 </head>
 <body>
 
@@ -24,9 +24,9 @@
 
         <nav class="site-nav">
             <a href="index.html"         class="nav-link active">Home</a>
-            <a href="drivers.html"       class="nav-link">Drivers</a>
-            <a href="constructors.html"  class="nav-link">Constructors</a>
-            <a href="results.html"       class="nav-link">Results</a>
+            <a href="src/html/drivers.html" class="nav-link">Drivers</a>
+            <a href="src/html/constructors.html" class="nav-link">Constructors</a>
+            <a href="src/html/results.html" class="nav-link">Results</a>
         </nav>
 
         <div class="season-badge">2026 Season</div>
@@ -98,6 +98,7 @@
                 <div class="map-label">Track Layout</div>
 
                 <div class="track-svg-wrap">
+                    <!-- SVG should be added here -->
 
                 </div>
 
@@ -371,7 +372,11 @@
     F1 Tracker · 2026 FIA Formula 1 World Championship · All times local
 </footer>
 
-
-<script src="../../dist/js/UI-Control/index.js"></script>
+<!--
+Source - https://stackoverflow.com/a/46887516
+Posted by Venkatesh Muniyandi, modified by community. See post 'Timeline' for change history
+Retrieved 2026-05-27, License - CC BY-SA 4.0
+-->
+<script type="module" src="src/main.ts"></script>
 </body>
 </html>

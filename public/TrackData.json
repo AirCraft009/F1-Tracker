@@ -7,7 +7,7 @@
     "length_km": 5.281,
     "turns": 16,
     "laps": 58,
-    "geojson": "/resources/bacinger-f1-circuits/ae-2009.geojson"
+    "geojson": "bacinger-f1-circuits/ae-2009.geojson"
   },
   {
     "circuitId": "buenos_aires",
@@ -17,7 +17,7 @@
     "length_km": 4.259,
     "turns": 14,
     "laps": 72,
-    "geojson": "/resources/bacinger-f1-circuits/ar-1952.geojson"
+    "geojson": "/bacinger-f1-circuits/ar-1952.geojson"
   },
   {
     "circuitId": "red_bull_ring",
@@ -27,7 +27,7 @@
     "length_km": 4.318,
     "turns": 10,
     "laps": 71,
-    "geojson": "/resources/bacinger-f1-circuits/at-1969.geojson"
+    "geojson": "/bacinger-f1-circuits/at-1969.geojson"
   },
   {
     "circuitId": "albert_park",
@@ -37,7 +37,7 @@
     "length_km": 5.278,
     "turns": 16,
     "laps": 58,
-    "geojson": "/resources/bacinger-f1-circuits/au-1953.geojson"
+    "geojson": "/bacinger-f1-circuits/au-1953.geojson"
   },
   {
     "circuitId": "baku",
@@ -47,7 +47,7 @@
     "length_km": 6.003,
     "turns": 20,
     "laps": 51,
-    "geojson": "/resources/bacinger-f1-circuits/az-2016.geojson"
+    "geojson": "/bacinger-f1-circuits/az-2016.geojson"
   },
   {
     "circuitId": "spa",
@@ -57,7 +57,7 @@
     "length_km": 7.004,
     "turns": 19,
     "laps": 44,
-    "geojson": "/resources/bacinger-f1-circuits/be-1925.geojson"
+    "geojson": "/bacinger-f1-circuits/be-1925.geojson"
   },
   {
     "circuitId": "bahrain",
@@ -67,7 +67,7 @@
     "length_km": 5.412,
     "turns": 15,
     "laps": 57,
-    "geojson": "/resources/bacinger-f1-circuits/bh-2002.geojson"
+    "geojson": "/bacinger-f1-circuits/bh-2002.geojson"
   },
   {
     "circuitId": "interlagos",
@@ -77,7 +77,7 @@
     "length_km": 4.309,
     "turns": 15,
     "laps": 71,
-    "geojson": "/resources/bacinger-f1-circuits/br-1940.geojson"
+    "geojson": "/bacinger-f1-circuits/br-1940.geojson"
   },
   {
     "circuitId": "jacarepagua",
@@ -87,7 +87,7 @@
     "length_km": 5.031,
     "turns": 14,
     "laps": 61,
-    "geojson": "/resources/bacinger-f1-circuits/br-1977.geojson"
+    "geojson": "/bacinger-f1-circuits/br-1977.geojson"
   },
   {
     "circuitId": "villeneuve",
@@ -97,7 +97,7 @@
     "length_km": 4.361,
     "turns": 14,
     "laps": 70,
-    "geojson": "/resources/bacinger-f1-circuits/ca-1978.geojson"
+    "geojson": "/bacinger-f1-circuits/ca-1978.geojson"
   },
   {
     "circuitId": "shanghai",
@@ -107,7 +107,7 @@
     "length_km": 5.451,
     "turns": 16,
     "laps": 56,
-    "geojson": "/resources/bacinger-f1-circuits/cn-2004.geojson"
+    "geojson": "/bacinger-f1-circuits/cn-2004.geojson"
   },
   {
     "circuitId": "hockenheim",
@@ -117,7 +117,7 @@
     "length_km": 4.574,
     "turns": 17,
     "laps": 67,
-    "geojson": "/resources/bacinger-f1-circuits/de-1932.geojson"
+    "geojson": "/bacinger-f1-circuits/de-1932.geojson"
   },
   {
     "circuitId": "nurburgring",
@@ -127,7 +127,7 @@
     "length_km": 5.148,
     "turns": 15,
     "laps": 60,
-    "geojson": "/resources/bacinger-f1-circuits/de-1927.geojson"
+    "geojson": "/bacinger-f1-circuits/de-1927.geojson"
   },
   {
     "circuitId": "catalunya",
@@ -137,7 +137,7 @@
     "length_km": 4.655,
     "turns": 14,
     "laps": 66,
-    "geojson": "/resources/bacinger-f1-circuits/es-1991.geojson"
+    "geojson": "/bacinger-f1-circuits/es-1991.geojson"
   },
   {
     "circuitId": "madrid",
@@ -147,7 +147,7 @@
     "length_km": 5.538,
     "turns": 20,
     "laps": 55,
-    "geojson": "/resources/bacinger-f1-circuits/es-2026.geojson"
+    "geojson": "/bacinger-f1-circuits/es-2026.geojson"
   },
   {
     "circuitId": "paul_ricard",
@@ -157,7 +157,7 @@
     "length_km": 5.842,
     "turns": 15,
     "laps": 53,
-    "geojson": "/resources/bacinger-f1-circuits/fr-1969.geojson"
+    "geojson": "/bacinger-f1-circuits/fr-1969.geojson"
   },
   {
     "circuitId": "magny_cours",
@@ -167,7 +167,7 @@
     "length_km": 4.411,
     "turns": 17,
     "laps": 70,
-    "geojson": "/resources/bacinger-f1-circuits/fr-1960.geojson"
+    "geojson": "/bacinger-f1-circuits/fr-1960.geojson"
   },
   {
     "circuitId": "silverstone",
@@ -177,7 +177,7 @@
     "length_km": 5.891,
     "turns": 18,
     "laps": 52,
-    "geojson": "/resources/bacinger-f1-circuits/gb-1948.geojson"
+    "geojson": "/bacinger-f1-circuits/gb-1948.geojson"
   },
   {
     "circuitId": "hungaroring",
@@ -187,7 +187,7 @@
     "length_km": 4.381,
     "turns": 14,
     "laps": 70,
-    "geojson": "/resources/bacinger-f1-circuits/hu-1986.geojson"
+    "geojson": "/bacinger-f1-circuits/hu-1986.geojson"
   },
   {
     "circuitId": "monza",
@@ -197,7 +197,7 @@
     "length_km": 5.793,
     "turns": 11,
     "laps": 53,
-    "geojson": "/resources/bacinger-f1-circuits/it-1922.geojson"
+    "geojson": "/bacinger-f1-circuits/it-1922.geojson"
   },
   {
     "circuitId": "imola",
@@ -207,7 +207,7 @@
     "length_km": 4.909,
     "turns": 19,
     "laps": 63,
-    "geojson": "/resources/bacinger-f1-circuits/it-1953.geojson"
+    "geojson": "/bacinger-f1-circuits/it-1953.geojson"
   },
   {
     "circuitId": "mugello",
@@ -217,7 +217,7 @@
     "length_km": 5.245,
     "turns": 15,
     "laps": 59,
-    "geojson": "/resources/bacinger-f1-circuits/it-1914.geojson"
+    "geojson": "/bacinger-f1-circuits/it-1914.geojson"
   },
   {
     "circuitId": "suzuka",
@@ -227,7 +227,7 @@
     "length_km": 5.807,
     "turns": 18,
     "laps": 53,
-    "geojson": "/resources/bacinger-f1-circuits/jp-1962.geojson"
+    "geojson": "/bacinger-f1-circuits/jp-1962.geojson"
   },
   {
     "circuitId": "monaco",
@@ -237,7 +237,7 @@
     "length_km": 3.337,
     "turns": 19,
     "laps": 78,
-    "geojson": "/resources/bacinger-f1-circuits/mc-1929.geojson"
+    "geojson": "/bacinger-f1-circuits/mc-1929.geojson"
   },
   {
     "circuitId": "mexico_city",
@@ -247,7 +247,7 @@
     "length_km": 4.304,
     "turns": 17,
     "laps": 71,
-    "geojson": "/resources/bacinger-f1-circuits/mx-1962.geojson"
+    "geojson": "/bacinger-f1-circuits/mx-1962.geojson"
   },
   {
     "circuitId": "sepang",
@@ -257,7 +257,7 @@
     "length_km": 5.543,
     "turns": 15,
     "laps": 56,
-    "geojson": "/resources/bacinger-f1-circuits/my-1999.geojson"
+    "geojson": "/bacinger-f1-circuits/my-1999.geojson"
   },
   {
     "circuitId": "zandvoort",
@@ -267,7 +267,7 @@
     "length_km": 4.259,
     "turns": 14,
     "laps": 72,
-    "geojson": "/resources/bacinger-f1-circuits/nl-1948.geojson"
+    "geojson": "/bacinger-f1-circuits/nl-1948.geojson"
   },
   {
     "circuitId": "estoril",
@@ -277,7 +277,7 @@
     "length_km": 4.182,
     "turns": 13,
     "laps": 71,
-    "geojson": "/resources/bacinger-f1-circuits/pt-1972.geojson"
+    "geojson": "/bacinger-f1-circuits/pt-1972.geojson"
   },
   {
     "circuitId": "portimao",
@@ -287,7 +287,7 @@
     "length_km": 4.684,
     "turns": 15,
     "laps": 66,
-    "geojson": "/resources/bacinger-f1-circuits/pt-2008.geojson"
+    "geojson": "/bacinger-f1-circuits/pt-2008.geojson"
   },
   {
     "circuitId": "losail",
@@ -297,7 +297,7 @@
     "length_km": 5.380,
     "turns": 16,
     "laps": 57,
-    "geojson": "/resources/bacinger-f1-circuits/qa-2004.geojson"
+    "geojson": "/bacinger-f1-circuits/qa-2004.geojson"
   },
   {
     "circuitId": "sochi",
@@ -307,7 +307,7 @@
     "length_km": 5.848,
     "turns": 18,
     "laps": 53,
-    "geojson": "/resources/bacinger-f1-circuits/ru-2014.geojson"
+    "geojson": "/bacinger-f1-circuits/ru-2014.geojson"
   },
   {
     "circuitId": "jeddah",
@@ -317,7 +317,7 @@
     "length_km": 6.174,
     "turns": 27,
     "laps": 50,
-    "geojson": "/resources/bacinger-f1-circuits/sa-2021.geojson"
+    "geojson": "/bacinger-f1-circuits/sa-2021.geojson"
   },
   {
     "circuitId": "singapore",
@@ -327,7 +327,7 @@
     "length_km": 4.940,
     "turns": 23,
     "laps": 62,
-    "geojson": "/resources/bacinger-f1-circuits/sg-2008.geojson"
+    "geojson": "/bacinger-f1-circuits/sg-2008.geojson"
   },
   {
     "circuitId": "istanbul",
@@ -337,7 +337,7 @@
     "length_km": 5.338,
     "turns": 14,
     "laps": 58,
-    "geojson": "/resources/bacinger-f1-circuits/tr-2005.geojson"
+    "geojson": "/bacinger-f1-circuits/tr-2005.geojson"
   },
   {
     "circuitId": "circuit_of_americas",
@@ -347,7 +347,7 @@
     "length_km": 5.513,
     "turns": 20,
     "laps": 56,
-    "geojson": "/resources/bacinger-f1-circuits/us-2012.geojson"
+    "geojson": "/bacinger-f1-circuits/us-2012.geojson"
   },
   {
     "circuitId": "miami",
@@ -357,7 +357,7 @@
     "length_km": 5.412,
     "turns": 19,
     "laps": 57,
-    "geojson": "/resources/bacinger-f1-circuits/us-2022.geojson"
+    "geojson": "/bacinger-f1-circuits/us-2022.geojson"
   },
   {
     "circuitId": "las_vegas",
@@ -367,7 +367,7 @@
     "length_km": 6.201,
     "turns": 17,
     "laps": 50,
-    "geojson": "/resources/bacinger-f1-circuits/us-2023.geojson"
+    "geojson": "/bacinger-f1-circuits/us-2023.geojson"
   },
   {
     "circuitId": "indianapolis",
@@ -377,7 +377,7 @@
     "length_km": 4.192,
     "turns": 13,
     "laps": 73,
-    "geojson": "/resources/bacinger-f1-circuits/us-1909.geojson"
+    "geojson": "/bacinger-f1-circuits/us-1909.geojson"
   },
   {
     "circuitId": "watkins_glen",
@@ -387,7 +387,7 @@
     "length_km": 5.435,
     "turns": 11,
     "laps": 59,
-    "geojson": "/resources/bacinger-f1-circuits/us-1956.geojson"
+    "geojson": "/bacinger-f1-circuits/us-1956.geojson"
   },
   {
     "circuitId": "kyalami",
@@ -397,6 +397,6 @@
     "length_km": 4.261,
     "turns": 16,
     "laps": 72,
-    "geojson": "/resources/bacinger-f1-circuits/za-1961.geojson"
+    "geojson": "/bacinger-f1-circuits/za-1961.geojson"
   }
 ]
