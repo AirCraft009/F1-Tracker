@@ -3,4 +3,4 @@
 
 import {drawCircuit, drawCircuitId} from "./ts/util/mapSvgConverter";
 
-drawCircuitId("yas_marina", ".track-svg-wrap");
+drawCircuitId("albert_park", ".track-svg-wrap");

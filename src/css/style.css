@@ -346,6 +346,10 @@ body::before {
 .team-audi      { background: #C0C0C0; }
 .team-cadillac  { background: #E5C100; }
 
+svg {
+    overflow: visible;
+}
+
 /* ---------- Points Bar ---------- */
 .pts-bar-wrap {
     display: flex;
@@ -405,6 +409,8 @@ body::before {
     .section-title { font-size: 1.5rem; }
     .pts-bar-wrap { display: none; }
 }
+
+
 
 @media (max-width: 520px) {
     .nav-link { padding: 0 0.5rem; font-size: 0.75rem; letter-spacing: 0.04em; }
