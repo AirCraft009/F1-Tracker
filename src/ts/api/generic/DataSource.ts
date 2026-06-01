@@ -1,9 +1,11 @@
 export interface F1DataSource {
-    getDrivers(): Promise<Driver[]>;                        // gets all current drivers
-    getDriversInSeason(season: number): Promise<Driver[]>;          // gets all drivers in a season
-    getRaceResults(season: number): Promise<RaceResult[]>;
-    getDriverById(id: string): Promise<Driver>;
-    getDriverStandings(season: number): Promise<DriverStanding[]>;
+    getDrivers(): Promise<Driver[]>;                                         // gets all current drivers
+    getDriversInSeason(season: number | string): Promise<Driver[]>;          // gets all drivers in a season
+    getRaceResults(season: number | string): Promise<RaceResult[]>;          // gets the results in a given season
+    getDriverById(id: string): Promise<Driver>;                              // get an entire driver via ID
+    getDriverStandings(season: number | string): Promise<DriverStanding[]>;  // get the drivers ranked with points
+    getCalender(season: number): Promise<Race[]>;                            // get all races(future) in a season
+    getRaceByRound(season: number | string, round: number | string): Promise<Race>;
 }
 
 
@@ -48,6 +50,8 @@ export type Circuit = {
     name:     string;
     location: string;       // location format (Locality Country) ex. Melbourne Australia
 }
+
+
 
 export type Race = {
     season: number;

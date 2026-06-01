@@ -22,6 +22,26 @@ type JolpicaConstrucor = {
     nationality:    string
 }
 
+type JolpicaCircuit = {
+    circuitId:      string
+    url:            string
+    circuitName:    string
+    Location:   {
+        lat:          number,
+        long:         number,
+        locality:     string,
+        country:      string
+    }
+}
+
+type JolpicaRace = {
+    season: number
+    round:  number
+    url?:   string
+    raceName:  string
+    Circuit: Jolpica
+}
+
 // Generic Response
 type JolpicaResponseHeader<T> = {
     MRData: {
@@ -82,6 +102,15 @@ export function mapJolpicaDriver(driver: JolpicaDriver): Driver {
         birthDate:      driver.dateOfBirth,
         nationality:    driver.nationality,
     };
+}
+
+export function mapJolpicaDriverStanding(standing: JolpicaDriverStanding): DriverStanding{
+    return {
+        driver: mapJolpicaDriver(standing.Driver),
+        points: standing.points,
+        position: standing.position,
+        wins: standing.wins,
+    }
 }
 
 export function mapJolpicaDriverStanding(standing: JolpicaDriverStanding): DriverStanding{

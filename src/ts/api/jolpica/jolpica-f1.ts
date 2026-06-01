@@ -1,7 +1,7 @@
 // core API Logic
 // call jolpica to function as F1DataSource
 
-import {Driver, DriverStanding, F1DataSource, RaceResult} from "../generic/DataSource";
+import {Driver, DriverStanding, F1DataSource, Race, RaceResult} from "../generic/DataSource";
 import {concatPaths} from "../../util/pathBuild";
 import {
     JolpicaDriverResponse,
@@ -10,6 +10,7 @@ import {
     mapJolpicaDriverStanding
 } from "./jolpicaMapper";
 import path from "node:path";
+import {Network} from "node:inspector";
 const JolpicaBase = "https://api.jolpi.ca/ergast/f1/"
 
 
@@ -17,6 +18,7 @@ class JolpicaF1DataSource implements  F1DataSource {
     static driverMod    = "drivers"
     static resultMod    = "results"
     static dStandingsMod= "driverstandings"
+    static raceMod= "races"
     retries: number
     delay: number
 
@@ -76,7 +78,7 @@ class JolpicaF1DataSource implements  F1DataSource {
         return Promise.resolve(mapJolpicaDriver(driverRes.MRData.DriverTable.Drivers[0]))
     }
 
-    async getDriverStandings(season: number): Promise<DriverStanding[]> {
+    async getDriverStandings(season: number | string): Promise<DriverStanding[]> {
         let res = await this.retryLoop(concatPaths(JolpicaBase, String(season), JolpicaF1DataSource.dStandingsMod))
         let standingRes : JolpicaDriverStandingResponse = await res.json();
 
@@ -91,8 +93,12 @@ class JolpicaF1DataSource implements  F1DataSource {
     }
 
     async getDrivers(): Promise<Driver[]> {
-        let res = await this.retryLoop(concatPaths(JolpicaBase, JolpicaF1DataSource.driverMod));
-        let driverRes : JolpicaDriverResponse = await res.json()
+        return this.getDriversInSeason("current")
+    }
+
+    async getDriversInSeason(season: number | string): Promise<Driver[]> {
+        let res = await this.retryLoop(concatPaths(JolpicaBase, String(season), JolpicaF1DataSource.driverMod))
+        let driverRes : JolpicaDriverResponse = await res.json();
 
         let len = driverRes.MRData.DriverTable.Drivers.length;
         let drivers : Driver[] = new Array<Driver>(len);
@@ -103,11 +109,16 @@ class JolpicaF1DataSource implements  F1DataSource {
         return Promise.resolve(drivers);
     }
 
-    getDriversInSeason(season: number): Promise<Driver[]> {
-        return Promise.resolve([]);
+    async getRaceByRound(season: number | string, round: number | string): Promise<Race> {
+        let res = await this.retryLoop(concatPaths(JolpicaBase, String(season), String(round), JolpicaF1DataSource.raceMod))
+
     }
 
     getRaceResults(season: number): Promise<RaceResult[]> {
+        return Promise.resolve([]);
+    }
+
+    getCalender(season: number): Promise<Race[]> {
         return Promise.resolve([]);
     }
 }
