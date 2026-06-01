@@ -1,6 +1,5 @@
 import * as d3 from "d3";
 import {Circuit} from "../api/generic/DataSource";
-import {createFilter} from "vite";
 
 const width = 340;
 const height = 480;
@@ -8,17 +7,61 @@ const trackCount = 40;
 const TrackPath = "/TrackData.json"
 
 /**
- * draws the circuit as svg
- * @param circ
- * @param appendElem the element the svg will be appended on (querySelector)
+ *
+ * Adds the circuit with description to a doc.
+ * <p>
+ * Adds the track as svg \
+ * Adds the turns \
+ * Adds the length \
+ * Adds the laps \
+ * Adds the country
+ *
+ *
+ * @param circ       the circuit in question.
+ * @param svgSelector the selector for the Element where the svg is appended to.
+ * @param turnElement the element the turn count is added to.
+ * @param lengthElement the element the lap length is added to.
+ * @param lapElement the element the lap count is added to.
+ * @param countryElement the element the country name is added to.
  */
-export async function drawCircuit(circ: Circuit, appendElem: string){
-    await drawCircuitId(circ.id, appendElem);
+export async function addCircuit(circ: Circuit,
+                                 svgSelector:       string,
+                                 turnElements:       NodeListOf<Element>,
+                                 lengthElements:     NodeListOf<Element>,
+                                 lapElements:        NodeListOf<Element>,
+                                 countryElements:    NodeListOf<Element>,
+    ) {
+    let trackRes = await fetch(TrackPath);
+    let trackJson : JSONTrack[] = await trackRes.json();
+
+    for (let i = 0; i < trackCount; i++) {
+        if(trackJson[i].circuitId == circ.id){
+            let track = trackJson[i];
+            await drawSvgTrack(track.geojson, svgSelector);
+
+            turnElements.forEach((el: Element) => {
+                el.textContent     = String(track.turns);
+            })
+
+            lengthElements.forEach((el: Element) => {
+                el.textContent     = String(track.length_km);
+            })
+            lapElements.forEach((el: Element) => {
+                el.textContent      = String(track.laps);
+            })
+
+            countryElements.forEach((el: Element) => {
+                el.textContent     = String(track.country);
+            })
+            return;
+        }
+    }
 }
+
 
 export async function drawCircuitId(id: string, appendElem: string){
     let trackRes = await fetch(TrackPath);
-    let trackJson = await trackRes.json();
+    let trackJson : JSONTrack[] = await trackRes.json();
     for (let i = 0; i < trackCount; i++) {
         if(trackJson[i].circuitId == id){
             await drawSvgTrack(trackJson[i].geojson, appendElem);
@@ -125,4 +168,17 @@ function addFiltersToSvg(): void {
 
         defs.appendChild(grad);
     });
+}
+
+
+// JSON Structure
+type JSONTrack = {
+    circuitId:  string,
+    name:       string,
+    country:    string,
+    city:       string,
+    length_km:  number,
+    turns:      number,
+    laps:       number,
+    geojson:    string,
 }

@@ -1,6 +1,9 @@
+import {setupIndex} from "./ts/api/UI-Control";
+import {F1DataSource} from "./ts/api/generic/DataSource";
+import {JolpicaF1DataSource} from "./ts/api/jolpica/jolpica-f1";
 
-//populate with testTrack
+const dataSource : F1DataSource = new JolpicaF1DataSource(2, 200);
 
-import {drawCircuit, drawCircuitId} from "./ts/util/mapSvgConverter";
-
-drawCircuitId("albert_park", ".track-svg-wrap");
+window.onload = () => {
+    setupIndex(dataSource).then(_ => {});
+}

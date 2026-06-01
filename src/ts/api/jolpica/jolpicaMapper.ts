@@ -1,9 +1,10 @@
 
 
 // DataTypes to match the Jolpica responses
-import {Driver, DriverStanding} from "../generic/DataSource";
+import {Circuit, Driver, DriverStanding, Race} from "../generic/DataSource";
 import {checkObjectsForUndefined} from "../../util/Object-Checker";
 
+// base Types
 type JolpicaDriver = {
     driverId: string
     permanentNumber?: number
@@ -34,12 +35,23 @@ type JolpicaCircuit = {
     }
 }
 
+type dateTime = {
+    date: string
+    time: string
+}
+
 type JolpicaRace = {
-    season: number
-    round:  number
-    url?:   string
-    raceName:  string
-    Circuit: Jolpica
+    season:         number
+    round:          number
+    url?:           string
+    raceName:       string
+    Circuit:        JolpicaCircuit
+    date:           string,
+    time:           string,
+    FirstPractice:  dateTime,
+    SecondPractice: dateTime,
+    ThirdPractice:  dateTime,
+    Qualifying:     dateTime,
 }
 
 // Generic Response
@@ -54,21 +66,7 @@ type JolpicaResponseHeader<T> = {
     } & T
 }
 
-// specific response header helpers
-type JolpicaDriverTable = {
-    DriverTable: {
-        Drivers: JolpicaDriver[]
-    }
-}
-
-type JolpicaStandingsTable = {
-    StandingsTable: {
-        season:         number,
-        round:          number,
-        StandingsLists:  StandingsEntry[]
-    }
-}
-
+// helper types
 type StandingsEntry = {
     season:             number,
     round:              number,
@@ -85,10 +83,35 @@ type JolpicaDriverStanding = {
 }
 
 
+// specific response header tables
+type JolpicaDriverTable = {
+    DriverTable: {
+        Drivers: JolpicaDriver[]
+    }
+}
+
+type JolpicaStandingsTable = {
+    StandingsTable: {
+        season:         number,
+        round:          number,
+        StandingsLists:  StandingsEntry[]
+    }
+}
+
+type JolpicaRaceTable = {
+    RaceTable: {
+        season?:         number,
+        round?:          number,
+        Races:          JolpicaRace[],
+    }
+}
+
+
 
 // combinations
 export type JolpicaDriverResponse = JolpicaResponseHeader<JolpicaDriverTable>;
 export type JolpicaDriverStandingResponse = JolpicaResponseHeader<JolpicaStandingsTable>
+export type JolpicaRaceResponse =           JolpicaResponseHeader<JolpicaRaceTable>
 
 
 // Mappers - Jolpica Objects to normal
@@ -113,11 +136,23 @@ export function mapJolpicaDriverStanding(standing: JolpicaDriverStanding): Drive
     }
 }
 
-export function mapJolpicaDriverStanding(standing: JolpicaDriverStanding): DriverStanding{
+export function mapJolpicaCircuit(circuit: JolpicaCircuit): Circuit{
     return {
-        driver: mapJolpicaDriver(standing.Driver),
-        points: standing.points,
-        position: standing.position,
-        wins: standing.wins,
+        id: circuit.circuitId,
+        name: circuit.circuitName,
+        location:   circuit.Location.locality
+                    + " " +
+                    circuit.Location.country,
+    }
+}
+
+export function mapJolpicaRace(race: JolpicaRace): Race{
+    return {
+        season:     race.season,
+        round:      race.round,
+        name:       race.raceName,
+        circuit:    mapJolpicaCircuit(race.Circuit),
+        date:       race.date,
+        time:       race.time,
     }
 }

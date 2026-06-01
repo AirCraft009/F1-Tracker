@@ -5,16 +5,16 @@ import {Driver, DriverStanding, F1DataSource, Race, RaceResult} from "../generic
 import {concatPaths} from "../../util/pathBuild";
 import {
     JolpicaDriverResponse,
-    JolpicaDriverStandingResponse,
+    JolpicaDriverStandingResponse, JolpicaRaceResponse,
     mapJolpicaDriver,
-    mapJolpicaDriverStanding
+    mapJolpicaDriverStanding, mapJolpicaRace
 } from "./jolpicaMapper";
 import path from "node:path";
 import {Network} from "node:inspector";
 const JolpicaBase = "https://api.jolpi.ca/ergast/f1/"
 
 
-class JolpicaF1DataSource implements  F1DataSource {
+export class JolpicaF1DataSource implements  F1DataSource {
     static driverMod    = "drivers"
     static resultMod    = "results"
     static dStandingsMod= "driverstandings"
@@ -111,7 +111,17 @@ class JolpicaF1DataSource implements  F1DataSource {
 
     async getRaceByRound(season: number | string, round: number | string): Promise<Race> {
         let res = await this.retryLoop(concatPaths(JolpicaBase, String(season), String(round), JolpicaF1DataSource.raceMod))
+        let raceRes : JolpicaRaceResponse = await res.json();
 
+        let len = raceRes.MRData.RaceTable.Races.length;
+        if(len != 1){
+            throw new Error("More than one race returned on season + round query.")
+        }
+
+        return Promise.resolve(
+            mapJolpicaRace(
+                raceRes.MRData.RaceTable.Races[0]
+            ));
     }
 
     getRaceResults(season: number): Promise<RaceResult[]> {
@@ -122,8 +132,6 @@ class JolpicaF1DataSource implements  F1DataSource {
         return Promise.resolve([]);
     }
 }
-
-main()
 
 async function main() {
     let f = new JolpicaF1DataSource(0, 200);
