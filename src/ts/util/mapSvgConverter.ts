@@ -19,10 +19,10 @@ const TrackPath = "/TrackData.json"
  *
  * @param circ       the circuit in question.
  * @param svgSelector the selector for the Element where the svg is appended to.
- * @param turnElement the element the turn count is added to.
- * @param lengthElement the element the lap length is added to.
- * @param lapElement the element the lap count is added to.
- * @param countryElement the element the country name is added to.
+ * @param turnElements the elements the turn count is added to.
+ * @param lengthElements the elements the lap length is added to.
+ * @param lapElements the elements the lap count is added to.
+ * @param countryElements the elements the country name is added to.
  */
 export async function addCircuit(circ: Circuit,
                                  svgSelector:       string,
@@ -44,7 +44,7 @@ export async function addCircuit(circ: Circuit,
             })
 
             lengthElements.forEach((el: Element) => {
-                el.textContent     = String(track.length_km);
+                el.textContent     = String(track.length_km) + "km";
             })
             lapElements.forEach((el: Element) => {
                 el.textContent      = String(track.laps);
@@ -94,7 +94,7 @@ async function drawSvgTrack(geoJsonPath: string, appendElem: string): Promise<vo
         .attr("fill", "none")
         .attr("stroke", "url(#trackGrad)")
         .attr("filter", "url(#glow)")
-        .attr("stroke-width", 10)
+        .attr("stroke-width", 3)
         .attr("stroke-linecap", "round")
         .attr("stroke-linejoin","round");
 
@@ -104,7 +104,7 @@ async function drawSvgTrack(geoJsonPath: string, appendElem: string): Promise<vo
         .attr("fill", "none")
         .attr("stroke", "black")
         .attr("stroke", "rgba(232,0,45,0.15)")
-        .attr("stroke-width", 26)
+        .attr("stroke-width", 7)
         .attr("stroke-linecap", "round")
         .attr("stroke-linejoin","round")
 
