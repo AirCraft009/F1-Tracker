@@ -5,5 +5,7 @@ import {JolpicaF1DataSource} from "./ts/api/jolpica/jolpica-f1";
 let dataSource : F1DataSource = new JolpicaF1DataSource(2, 200);
 
 window.onload = () => {
-    setupIndex(dataSource, 2026, "next").then(_ => {});
+    setupIndex(dataSource, 2022, 2).then(_ => {});
 }
+
+

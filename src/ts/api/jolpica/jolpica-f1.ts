@@ -1,16 +1,17 @@
 // core API Logic
 // call jolpica to function as F1DataSource
 
-import {Driver, DriverStanding, F1DataSource, Race, RaceResult} from "../generic/DataSource";
+import {ConstructorStanding, Driver, DriverStanding, F1DataSource, Race, RaceResult} from "../generic/DataSource";
 import {concatPaths} from "../../util/pathBuild";
 import {
+    JolpicaConstructorStandingResponse,
     JolpicaDriverResponse,
-    JolpicaDriverStandingResponse, JolpicaRaceResponse,
+    JolpicaDriverStandingResponse, JolpicaRaceResponse, mapJolpicaConstructorStanding,
     mapJolpicaDriver,
-    mapJolpicaDriverStanding, mapJolpicaRace
+    mapJolpicaDriverStanding,
+    mapJolpicaRace
 } from "./jolpicaMapper";
-import path from "node:path";
-import {Network} from "node:inspector";
+
 const JolpicaBase = "https://api.jolpi.ca/ergast/f1/"
 
 
@@ -18,6 +19,7 @@ export class JolpicaF1DataSource implements  F1DataSource {
     static driverMod    = "drivers"
     static resultMod    = "results"
     static dStandingsMod= "driverstandings"
+    static cStandingsMod= "constructorstandings"
     static raceMod= "races"
     retries: number
     delay: number
@@ -42,10 +44,20 @@ export class JolpicaF1DataSource implements  F1DataSource {
         let res : Response | undefined = undefined;
         console.log(path)
         for (let i = 0; i < this.retries + 1; i++) {
-            res = await fetch(path)
-            if (!res.ok) {
-                console.error("API call failed: ", res.statusText);
 
+            try {
+                res = await fetch(path)
+            }catch(err){
+                if(i === this.retries)        // final retry (error out)
+                    throw new Error("Jolpica failed on fetch call. Check Internet connection: " + err);
+
+                console.error("API call failed on fetch call: " + err);
+                await new Promise(r => setTimeout(r, this.delay));
+                continue;
+            }
+
+            if (res.status >= 500 || res.status === 429) {
+                console.error("API call failed: ", res.statusText);
 
                 // Source - https://stackoverflow.com/a/39914235
                 // Posted by Dan Dascalescu, modified by community. See post 'Timeline' for change history
@@ -55,42 +67,69 @@ export class JolpicaF1DataSource implements  F1DataSource {
                 if(i === this.retries) {        // final retry (error out)
                     throw new Error("Jolpica didn't deliver a response. Check status")
                 }
-                continue;
+                continue
             }
             break
+
         }
 
         if(!res){
             throw new Error("Response shouldn't be undefined. Illegal State Check getDriverById logic")
         }
-        return Promise.resolve(res);
+        return res;
     }
 
 
     async getDriverById(id: string): Promise<Driver> {
         let res = await this.retryLoop(concatPaths(JolpicaBase, JolpicaF1DataSource.driverMod, id));
         let driverRes : JolpicaDriverResponse = await res.json()
+
         // only one driver should exist if one id is queried
         if(driverRes.MRData.DriverTable.Drivers.length != 1){
-            throw new Error("More than one driver returned on ID query.")
+            throw new Error("Not only one driver returned on ID query.")
         }
 
-        return Promise.resolve(mapJolpicaDriver(driverRes.MRData.DriverTable.Drivers[0]))
+        return (mapJolpicaDriver(driverRes.MRData.DriverTable.Drivers[0]))
     }
 
     async getDriverStandings(season: number | string): Promise<DriverStanding[]> {
         let res = await this.retryLoop(concatPaths(JolpicaBase, String(season), JolpicaF1DataSource.dStandingsMod))
         let standingRes : JolpicaDriverStandingResponse = await res.json();
 
-        let len = standingRes.MRData.StandingsTable.StandingsLists[0].DriverStandings.length;
+        let list = standingRes.MRData.StandingsTable.StandingsLists[0]
+        if(!list){
+            throw new Error("No standings found: Illegal query?\n season: " + season)
+        }
+
+        let len = list.DriverStandings.length;
         let standings : DriverStanding[] = new Array<DriverStanding>(len);
 
         for (let i = 0; i < len; i++) {
-            standings[i] = mapJolpicaDriverStanding(standingRes.MRData.StandingsTable.StandingsLists[0].DriverStandings[i]);
+            standings[i] = mapJolpicaDriverStanding(list.DriverStandings[i]);
         }
 
-        return Promise.resolve(standings);
+        return (standings);
     }
+
+    async getConstructorStandings(season: number | string): Promise<ConstructorStanding[]> {
+        let res = await this.retryLoop(concatPaths(JolpicaBase, String(season), JolpicaF1DataSource.cStandingsMod))
+        let standingRes : JolpicaConstructorStandingResponse = await res.json();
+
+        let list = standingRes.MRData.StandingsTable.StandingsLists[0]
+        if(!list){
+            throw new Error("No constructor standings found: Illegal query?\n season: " + season)
+        }
+
+        let len = list.ConstructorStandings.length;
+        let standings : ConstructorStanding[] = new Array<ConstructorStanding>(len);
+
+        for (let i = 0; i < len; i++) {
+            standings[i] = mapJolpicaConstructorStanding(list.ConstructorStandings[i]);
+        }
+
+        return (standings);
+    }
+
 
     async getDrivers(): Promise<Driver[]> {
         return this.getDriversInSeason("current")
@@ -106,7 +145,7 @@ export class JolpicaF1DataSource implements  F1DataSource {
         for (let i = 0; i < len; i++) {
             drivers[i] = mapJolpicaDriver(driverRes.MRData.DriverTable.Drivers[i]);
         }
-        return Promise.resolve(drivers);
+        return (drivers);
     }
 
     async getRaceByRound(season: number | string, round: number | string): Promise<Race> {
@@ -120,7 +159,7 @@ export class JolpicaF1DataSource implements  F1DataSource {
             throw new Error("No Race returned on season + round query. API down? internet connection? invalid params?")
         }
 
-        return Promise.resolve(
+        return (
             mapJolpicaRace(
                 raceRes.MRData.RaceTable.Races[0]
             ));
@@ -139,7 +178,7 @@ export class JolpicaF1DataSource implements  F1DataSource {
         for (let i = 0; i < len; i++) {
             calenderRaces[i] = mapJolpicaRace(raceRes.MRData.RaceTable.Races[i]);
         }
-        return Promise.resolve(calenderRaces);
+        return (calenderRaces);
     }
 }
 

@@ -1,8 +1,5 @@
-import {DriverStanding, F1DataSource, Race} from "../api/generic/DataSource";
-import {addCircuit, drawCircuitId} from "../util/mapSvgConverter";
-import {start} from "node:repl";
-import {checkObjectsForUndefined} from "../util/Object-Checker";
-import {format} from "d3";
+import {Constructor, ConstructorStanding, DriverStanding, F1DataSource, Race} from "../api/generic/DataSource";
+import {addCircuit} from "../util/mapSvgConverter";
 
 // selectors
 const date_select = ".race-date-span-val"
@@ -106,7 +103,7 @@ export async function setupIndex(dataSource: F1DataSource, season: number| strin
 
 
     round.forEach((round) => {
-        round.textContent = "Round: " + nextRace.round + " · " + nextRace.season;
+        round.textContent = "Round " + nextRace.round + " · " + nextRace.season;
     })
 
 
@@ -115,22 +112,74 @@ export async function setupIndex(dataSource: F1DataSource, season: number| strin
     if(!standingsAppend) {
         throw new Error("Driver Standings weren't found.")
     }
-    // add top 5
+    // add top 5 drivers
     for (let i = 0; i < 5; i++) {
         addDriverStanding(driverSt[i], standingsAppend)
     }
+
+
+
+    let constSt = await dataSource.getConstructorStandings(season)
+    let cStandingsAppend = document.querySelector("#constructor-top")
+    if(!cStandingsAppend) {
+        throw new Error("Driver Standings weren't found.")
+    }
+
+    // add top 5 constructors
+    for (let i = 0; i < 5; i++) {
+        addConstructorStanding(constSt[i], cStandingsAppend)
+    }
+
+}
+
+/**
+ * create this structure from a constructorstanding
+ *
+ *<div class="qs-row">
+ *  <span class="qs-pos p1">1</span>
+ *  <span class="qs-dot team-mercedes"></span>
+ *  <span class="qs-name">Mercedes</span>
+ *  <span class="qs-pts">194</span>
+ *</div>
+ *
+ *
+ */
+function addConstructorStanding(constStand: ConstructorStanding, appendElement: Element){
+    let row = document.createElement("div");
+    row.setAttribute("class", "qs-row");
+    appendElement.appendChild(row);
+
+    let pos = document.createElement("span");
+    pos.setAttribute("class", "qs-pos");
+    pos.textContent = String(constStand.position)
+    row.appendChild(pos);
+
+    let dot = document.createElement("span");
+    console.log(constStand.constructor.constructorId)
+    dot.setAttribute("class", "qs-dot team-"+constStand.constructor.constructorId);
+    row.appendChild(dot);
+
+    let name = document.createElement("span");
+    name.setAttribute("class", "qs-name");
+    name.textContent = constStand.constructor.name
+    row.appendChild(name);
+
+    let points = document.createElement("span");
+    points.setAttribute("class", "qs-points");
+    points.textContent = String(constStand.points);
+    row.appendChild(points);
 }
 
 
 /**
  * create this structure from driver
  *
- *                 <div class="qs-row">
- *                     <span class="qs-pos p1">1</span>
- *                     <span class="qs-dot team-mercedes"></span>
- *                     <span class="qs-name">K. Antonelli</span>
- *                     <span class="qs-pts">106</span>
- *                 </div>
+ *<div class="qs-row">
+ *  <span class="qs-pos p1">1</span>
+ *  <span class="qs-dot team-mercedes"></span>
+ *  <span class="qs-name">K. Antonelli</span>
+ *  <span class="qs-pts">106</span>
+ *</div>
  */
 function addDriverStanding(standing: DriverStanding, appendElement: Element) {
     let row = document.createElement("div");

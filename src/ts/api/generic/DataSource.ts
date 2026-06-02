@@ -8,14 +8,22 @@ export interface F1DataSource {
     getDriverStandings(season: number | string): Promise<DriverStanding[]>;  // get the drivers ranked with points
     getCalender(season: number): Promise<Race[]>;                            // get all races(future) in a season
     getRaceByRound(season: number | string, round: number | string): Promise<Race>;
+    getConstructorStandings(season: number | string): Promise<ConstructorStanding[]>
 }
-
 
 export type DriverStanding = {
     position: number
     points:   number
     wins:     number
     driver:   Driver
+}
+
+
+export type ConstructorStanding = {
+    position:       number,
+    points:         number,
+    wins:           number,
+    constructor:    Constructor,
 }
 
 export type Driver = {
@@ -29,7 +37,9 @@ export type Driver = {
 }
 
 export type Constructor = {
-    // TODO: implement Constructor
+    constructorId:  string;
+    name:           string;
+    nationality?:   string;
 }
 
 export type RaceResult = {

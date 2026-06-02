@@ -1,7 +1,7 @@
 
 
 // DataTypes to match the Jolpica responses
-import {Circuit, Driver, DriverStanding, Race} from "../generic/DataSource";
+import {Circuit, Constructor, ConstructorStanding, Driver, DriverStanding, Race} from "../generic/DataSource";
 import {checkObjectsForUndefined} from "../../util/Object-Checker";
 
 // base Types
@@ -16,7 +16,7 @@ type JolpicaDriver = {
     nationality?: string
 }
 
-type JolpicaConstrucor = {
+type JolpicaConstructor = {
     constructorId:  string,
     url:            string,
     name:           string,
@@ -67,10 +67,10 @@ type JolpicaResponseHeader<T> = {
 }
 
 // helper types
-type StandingsEntry = {
+type StandingsEntry<T> = {
     season:             number,
-    round:              number,
-    DriverStandings:    JolpicaDriverStanding[],
+    round:              number
+    &T
 }
 
 type JolpicaDriverStanding = {
@@ -79,7 +79,15 @@ type JolpicaDriverStanding = {
     points: number,
     wins: number,
     Driver: JolpicaDriver,
-    Constructors: JolpicaConstrucor[]
+    Constructors: JolpicaConstructor[]
+}
+
+type JolpicaConstructorStanding = {
+    position:       number,
+    points:         number,
+    positionText:   string,
+    wins:           number,
+    Constructor:    JolpicaConstructor
 }
 
 
@@ -90,11 +98,11 @@ type JolpicaDriverTable = {
     }
 }
 
-type JolpicaStandingsTable = {
+type JolpicaStandingsTable<T> = {
     StandingsTable: {
         season:         number,
         round:          number,
-        StandingsLists:  StandingsEntry[]
+        StandingsLists:  T[]
     }
 }
 
@@ -110,7 +118,8 @@ type JolpicaRaceTable = {
 
 // combinations
 export type JolpicaDriverResponse = JolpicaResponseHeader<JolpicaDriverTable>;
-export type JolpicaDriverStandingResponse = JolpicaResponseHeader<JolpicaStandingsTable>
+export type JolpicaDriverStandingResponse = JolpicaResponseHeader<JolpicaStandingsTable<{DriverStandings: JolpicaDriverStanding[]}>>
+export type JolpicaConstructorStandingResponse = JolpicaResponseHeader<JolpicaStandingsTable<{ConstructorStandings: JolpicaConstructorStanding[]}>>
 export type JolpicaRaceResponse =           JolpicaResponseHeader<JolpicaRaceTable>
 
 
@@ -160,5 +169,22 @@ export function mapJolpicaRace(race: JolpicaRace): Race{
         pract2:     race.SecondPractice,
         pract3:     race.ThirdPractice,
         qualify:    race.Qualifying,
+    }
+}
+
+export function mapJolpicaConstructor(constructor: JolpicaConstructor): Constructor {
+    return {
+        constructorId: constructor.constructorId,
+        name: constructor.name,
+        nationality: constructor.nationality,
+    };
+}
+
+export function mapJolpicaConstructorStanding(standing: JolpicaConstructorStanding): ConstructorStanding{
+    return {
+        position:       standing.position,
+        points:         standing.points,
+        wins:           standing.wins,
+        constructor:    mapJolpicaConstructor(standing.Constructor)
     }
 }
