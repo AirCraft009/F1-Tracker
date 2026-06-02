@@ -1,3 +1,5 @@
+import {dateTime} from "../jolpica/jolpicaMapper";
+
 export interface F1DataSource {
     getDrivers(): Promise<Driver[]>;                                         // gets all current drivers
     getDriversInSeason(season: number | string): Promise<Driver[]>;          // gets all drivers in a season
@@ -17,10 +19,11 @@ export type DriverStanding = {
 }
 
 export type Driver = {
-    driverId: string;
-    firstName: string;
-    lastName: string;
-    num?: number;
+    driverId:   string;
+    firstName:  string;
+    lastName:   string;
+    teamId?:     string;
+    num?:       number;
     birthDate?: string;
     nationality?: string;
 }
@@ -53,11 +56,17 @@ export type Circuit = {
 
 
 
+
+
 export type Race = {
-    season: number;
-    round: number;
-    name: string;
-    circuit: Circuit;
-    date: string;
-    time: string;
+    season:     number;
+    round:      number;
+    name:       string;
+    circuit:    Circuit;
+    date:       string;
+    time:       string;
+    pract1:     dateTime,
+    pract2:     dateTime,
+    pract3:     dateTime,
+    qualify:    dateTime
 }

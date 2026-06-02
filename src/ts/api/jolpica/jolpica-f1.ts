@@ -114,8 +114,10 @@ export class JolpicaF1DataSource implements  F1DataSource {
         let raceRes : JolpicaRaceResponse = await res.json();
 
         let len = raceRes.MRData.RaceTable.Races.length;
-        if(len != 1){
+        if(len > 1){
             throw new Error("More than one race returned on season + round query.")
+        }else if (len < 1){
+            throw new Error("No Race returned on season + round query. API down? internet connection? invalid params?")
         }
 
         return Promise.resolve(
@@ -128,8 +130,16 @@ export class JolpicaF1DataSource implements  F1DataSource {
         return Promise.resolve([]);
     }
 
-    getCalender(season: number): Promise<Race[]> {
-        return Promise.resolve([]);
+    async getCalender(season: number): Promise<Race[]> {
+        let res = await this.retryLoop(concatPaths(JolpicaBase, String(season), JolpicaF1DataSource.raceMod))
+        let raceRes : JolpicaRaceResponse = await res.json();
+
+        let len = raceRes.MRData.RaceTable.Races.length;
+        let calenderRaces : Race[] = new Array<Race>(len);
+        for (let i = 0; i < len; i++) {
+            calenderRaces[i] = mapJolpicaRace(raceRes.MRData.RaceTable.Races[i]);
+        }
+        return Promise.resolve(calenderRaces);
     }
 }
 

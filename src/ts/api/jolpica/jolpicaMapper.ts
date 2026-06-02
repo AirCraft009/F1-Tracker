@@ -35,7 +35,7 @@ type JolpicaCircuit = {
     }
 }
 
-type dateTime = {
+export type dateTime = {
     date: string
     time: string
 }
@@ -128,8 +128,10 @@ export function mapJolpicaDriver(driver: JolpicaDriver): Driver {
 }
 
 export function mapJolpicaDriverStanding(standing: JolpicaDriverStanding): DriverStanding{
+    let driver = mapJolpicaDriver(standing.Driver);
+    driver.teamId = standing.Constructors[0].constructorId;
     return {
-        driver: mapJolpicaDriver(standing.Driver),
+        driver: driver,
         points: standing.points,
         position: standing.position,
         wins: standing.wins,
@@ -154,5 +156,9 @@ export function mapJolpicaRace(race: JolpicaRace): Race{
         circuit:    mapJolpicaCircuit(race.Circuit),
         date:       race.date,
         time:       race.time,
+        pract1:     race.FirstPractice,
+        pract2:     race.SecondPractice,
+        pract3:     race.ThirdPractice,
+        qualify:    race.Qualifying,
     }
 }

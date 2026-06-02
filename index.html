@@ -56,13 +56,13 @@
                     <div class="next-tag">Up Next</div>
                     <div class="race-round">Round 6 · 2026</div>
                     <!--<h2 class="race-name">Grand Prix<br><span class="red">de Monaco</span></h2> -->
-                    <h2 class="race-name"></h2>
+                    <h2 class="race-name race-name-val"></h2>
                     <p class="race-circuit-name">Circuit de Monaco · Principauté de Monaco</p>
 
                     <div class="race-meta-grid">
                         <div class="meta-item">
                             <span class="meta-label">Date</span>
-                            <span class="meta-value date-val">5–7 Jun</span>
+                            <span class="meta-value race-date-span-val">5–7 Jun</span>
                         </div>
                         <div class="meta-item">
                             <span class="meta-label">Laps</span>
@@ -78,23 +78,23 @@
                 <ul class="schedule-list">
                     <li>
                         <span class="session-name">Practice 1</span>
-                        <span class="session-date">Thu 5 Jun · 12:30</span>
+                        <span class="session-date p1-date-val">Thu 5 Jun · 12:30</span>
                     </li>
                     <li>
                         <span class="session-name">Practice 2</span>
-                        <span class="session-date">Thu 5 Jun · 16:00</span>
+                        <span class="session-date p2-date-val">Thu 5 Jun · 16:00</span>
                     </li>
                     <li>
                         <span class="session-name">Practice 3</span>
-                        <span class="session-date">Sat 6 Jun · 11:30</span>
+                        <span class="session-date p3-date-val">Sat 6 Jun · 11:30</span>
                     </li>
                     <li>
                         <span class="session-name">Qualifying</span>
-                        <span class="session-date">Sat 6 Jun · 15:00</span>
+                        <span class="session-date qual-date-val">Sat 6 Jun · 15:00</span>
                     </li>
                     <li>
                         <span class="session-name race-session">Race</span>
-                        <span class="session-date">Sun 7 Jun · 14:00</span>
+                        <span class="session-date race-date-val">Sun 7 Jun · 14:00</span>
                     </li>
                 </ul>
             </div>
@@ -142,37 +142,7 @@
         <!-- Drivers top 3 -->
         <div class="qs-card">
             <div class="qs-header">Drivers' Top 5</div>
-            <div class="qs-body">
-                <div class="qs-row">
-                    <span class="qs-pos p1">1</span>
-                    <span class="qs-dot team-mercedes"></span>
-                    <span class="qs-name">K. Antonelli</span>
-                    <span class="qs-pts">106</span>
-                </div>
-                <div class="qs-row">
-                    <span class="qs-pos p2">2</span>
-                    <span class="qs-dot team-mercedes"></span>
-                    <span class="qs-name">G. Russell</span>
-                    <span class="qs-pts">88</span>
-                </div>
-                <div class="qs-row">
-                    <span class="qs-pos p3">3</span>
-                    <span class="qs-dot team-ferrari"></span>
-                    <span class="qs-name">C. Leclerc</span>
-                    <span class="qs-pts">65</span>
-                </div>
-                <div class="qs-row">
-                    <span class="qs-pos">4</span>
-                    <span class="qs-dot team-mclaren"></span>
-                    <span class="qs-name">L. Norris</span>
-                    <span class="qs-pts">60</span>
-                </div>
-                <div class="qs-row">
-                    <span class="qs-pos">5</span>
-                    <span class="qs-dot team-ferrari"></span>
-                    <span class="qs-name">L. Hamilton</span>
-                    <span class="qs-pts">54</span>
-                </div>
+            <div id="driver-top" class="qs-body">
             </div>
         </div>
 
@@ -200,7 +170,7 @@
                 </div>
                 <div class="qs-row">
                     <span class="qs-pos">4</span>
-                    <span class="qs-dot team-redbull"></span>
+                    <span class="qs-dot team-red_bull"></span>
                     <span class="qs-name">Red Bull</span>
                     <span class="qs-pts">38</span>
                 </div>

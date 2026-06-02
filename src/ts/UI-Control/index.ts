@@ -1,0 +1,163 @@
+import {DriverStanding, F1DataSource, Race} from "../api/generic/DataSource";
+import {addCircuit, drawCircuitId} from "../util/mapSvgConverter";
+import {start} from "node:repl";
+import {checkObjectsForUndefined} from "../util/Object-Checker";
+import {format} from "d3";
+
+// selectors
+const date_select = ".race-date-span-val"
+const race_date_select = ".race-date-val"
+const p1_date_select = ".p1-date-val"
+const p2_date_select = ".p2-date-val"
+const p3_date_select = ".p3-date-val"
+const qual_date_select = ".qual-date-val"
+const lap_select = ".lap-val"
+const dist_select = ".distance-val"
+const turn_select = ".turn-val"
+const country_select = ".country-val"
+const circuit_name_select = ".race-circuit-name"
+const race_name_select = ".race-name-val"
+const race_round_select = ".race-round"
+
+
+
+
+export async function setupIndex(dataSource: F1DataSource, season: number| string, r : number | string) {
+    let nextRace: Race | null = null
+    try {
+         nextRace = await dataSource.getRaceByRound(season , r)
+    }
+    catch (e) {
+        alert("Getting Data was unsuccessful: " + e)
+        return
+    }
+    if (!nextRace) {
+        throw new Error("No next race found.");
+    }
+
+    console.log("Loading circuit: " + nextRace.circuit.name);
+    console.log("getting HTML elements")
+    let lap         = document.querySelectorAll(lap_select);
+    let dist        = document.querySelectorAll(dist_select);
+    let turns       = document.querySelectorAll(turn_select);
+    let country     = document.querySelectorAll(country_select);
+    let raceName    = document.querySelectorAll(race_name_select);
+    let circuitName = document.querySelectorAll(circuit_name_select);
+    let spanDate    = document.querySelectorAll(date_select);
+    let p1          = document.querySelectorAll(p1_date_select);
+    let p2          = document.querySelectorAll(p2_date_select);
+    let p3          = document.querySelectorAll(p3_date_select);
+    let quali       = document.querySelectorAll(qual_date_select);
+    let race        = document.querySelectorAll(race_date_select);
+    let round       = document.querySelectorAll(race_round_select)
+
+    if(lap.length == 0 || dist.length == 0 || turns.length == 0 || country.length == 0 || circuitName.length == 0 || raceName.length == 0 || circuitName.length == 0) {
+        throw new Error("Circuit Attribute Fields weren't found.");
+    }
+
+    await addCircuit(nextRace.circuit, ".track-svg-wrap", turns, dist, lap, country);
+
+    raceName.forEach((raceName) => {
+        raceName.textContent = nextRace.name;
+    })
+
+    circuitName.forEach((circuitName) => {
+        circuitName.textContent = nextRace.circuit.name;
+    })
+
+
+    let startDate   = new Date(nextRace.pract1.date);
+    let endDate     = new Date(nextRace.date);
+    let formatter    = new Intl.DateTimeFormat("en-US", {
+        month: "short",
+        day:    undefined,
+        year:   "2-digit",
+    })
+
+    spanDate.forEach((date) => {
+        date.textContent = formatDayRange(startDate, endDate) + ". " + formatter.format(endDate);
+    })
+
+
+    let p1Date = new Date(nextRace.pract1.date);
+    p1.forEach((p1) => {
+        p1.textContent = p1Date.toDateString();
+    })
+
+    let p2Date = new Date(nextRace.pract2.date);
+    p2.forEach((p2) => {
+        p2.textContent = p2Date.toDateString();
+    })
+
+    let p3Date = new Date(nextRace.pract3.date);
+    p3.forEach((p3) => {
+        p3.textContent = p3Date.toDateString();
+    })
+
+    let qualDate = new Date(nextRace.qualify.date);
+    quali.forEach((qual) => {
+        qual.textContent = qualDate.toDateString();
+    })
+
+    let raceDate = new Date(nextRace.date);
+    race.forEach((race) => {
+        race.textContent = raceDate.toDateString();
+    })
+
+
+    round.forEach((round) => {
+        round.textContent = "Round: " + nextRace.round + " · " + nextRace.season;
+    })
+
+
+    let driverSt = await dataSource.getDriverStandings(season)
+    let standingsAppend = document.querySelector("#driver-top")
+    if(!standingsAppend) {
+        throw new Error("Driver Standings weren't found.")
+    }
+    // add top 5
+    for (let i = 0; i < 5; i++) {
+        addDriverStanding(driverSt[i], standingsAppend)
+    }
+}
+
+
+/**
+ * create this structure from driver
+ *
+ *                 <div class="qs-row">
+ *                     <span class="qs-pos p1">1</span>
+ *                     <span class="qs-dot team-mercedes"></span>
+ *                     <span class="qs-name">K. Antonelli</span>
+ *                     <span class="qs-pts">106</span>
+ *                 </div>
+ */
+function addDriverStanding(standing: DriverStanding, appendElement: Element) {
+    let row = document.createElement("div");
+    row.setAttribute("class", "qs-row");
+    appendElement.appendChild(row);
+
+    let pos = document.createElement("span");
+    pos.setAttribute("class", "qs-pos");
+    pos.textContent = String(standing.position)
+    row.appendChild(pos);
+
+    let dot = document.createElement("span");
+    console.log(standing.driver.teamId)
+    dot.setAttribute("class", "qs-dot team-"+standing.driver.teamId);
+    row.appendChild(dot);
+
+    let name = document.createElement("span");
+    name.setAttribute("class", "qs-name");
+    name.textContent = standing.driver.firstName.substring(0, 1) + ". " + standing.driver.lastName;
+    row.appendChild(name);
+
+    let points = document.createElement("span");
+    points.setAttribute("class", "qs-points");
+    points.textContent = String(standing.points);
+    row.appendChild(points);
+}
+
+function formatDayRange(from: Date, to: Date): string {
+    return `${from.getDate()} - ${to.getDate()}`;
+}
