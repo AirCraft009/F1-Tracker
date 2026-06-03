@@ -1,4 +1,4 @@
-import {Constructor, ConstructorStanding, DriverStanding, F1DataSource, Race} from "../api/generic/DataSource";
+import {Constructor, ConstructorStanding, DriverStanding, F1DataSource, Race, Result} from "../api/generic/DataSource";
 import {addCircuit} from "../util/mapSvgConverter";
 
 // selectors
@@ -17,9 +17,14 @@ const race_name_select = ".race-name-val"
 const race_round_select = ".race-round"
 
 
-
-
-export async function setupIndex(dataSource: F1DataSource, season: number| string, r : number | string) {
+/**
+ * sets up the index.html
+ * @param dataSource the data source to use
+ * @param season the season to get the data from
+ * @param r the round to get the data from
+ * @param n the count of drivers shown in top lists
+ */
+export async function setupIndex(dataSource: F1DataSource, season: number| string, r : number | string, n: number) {
     let nextRace: Race | null = null
     try {
          nextRace = await dataSource.getRaceByRound(season , r)
@@ -107,29 +112,81 @@ export async function setupIndex(dataSource: F1DataSource, season: number| strin
     })
 
 
-    let driverSt = await dataSource.getDriverStandings(season)
-    let standingsAppend = document.querySelector("#driver-top")
+    const driverSt = await dataSource.getDriverStandings(season)
+    const standingsAppend = document.querySelector("#driver-top")
     if(!standingsAppend) {
         throw new Error("Driver Standings weren't found.")
     }
     // add top 5 drivers
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < n; i++) {
         addDriverStanding(driverSt[i], standingsAppend)
     }
 
 
 
-    let constSt = await dataSource.getConstructorStandings(season)
-    let cStandingsAppend = document.querySelector("#constructor-top")
+    const constSt = await dataSource.getConstructorStandings(season)
+    const cStandingsAppend = document.querySelector("#constructor-top")
     if(!cStandingsAppend) {
         throw new Error("Driver Standings weren't found.")
     }
 
     // add top 5 constructors
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < n; i++) {
         addConstructorStanding(constSt[i], cStandingsAppend)
     }
 
+
+    const raceRes = await dataSource.getRaceResult(season, "last");
+    console.log(raceRes.results)
+    let baseT = raceRes.results[0].milliTime
+    const timeAppend = document.querySelector("#time-top")
+    if(!timeAppend) {
+        throw new Error("Driver time list wasn't found.")
+    }
+
+    for (let i = 0; i < n; i++) {
+        addDriverTime(raceRes.results[i], baseT, timeAppend)
+    }
+}
+
+/**
+ *
+ * make this structure to set times
+ * Currently NOT typesafe (constructors are assumed to exist)
+ *
+ *                 <div class="qs-row">
+ *                     <span class="qs-pos p1">1</span>
+ *                     <span class="qs-dot team-mercedes"></span>
+ *                     <span class="qs-name">G. Russell</span>
+ *                     <span class="qs-pts">+0.000</span>
+ *                 </div>
+ */
+function addDriverTime(res: Result, baseT: number, appendElement: Element) {
+    let timeDiff = res.milliTime - baseT;
+
+    let row = document.createElement("div");
+    row.setAttribute("class", "qs-row");
+    appendElement.appendChild(row);
+
+    let pos = document.createElement("span");
+    pos.setAttribute("class", "qs-pos");
+    pos.textContent = String(res.pos)
+    row.appendChild(pos);
+
+    let dot = document.createElement("span");
+    console.log(res.teamP1.constructorId)
+    dot.setAttribute("class", "qs-dot team-"+res.teamP1.constructorId);
+    row.appendChild(dot);
+
+    let name = document.createElement("span");
+    name.setAttribute("class", "qs-name");
+    name.textContent = res.driver.firstName.substring(0, 1) + ". " + res.driver.lastName;
+    row.appendChild(name);
+
+    let points = document.createElement("span");
+    points.setAttribute("class", "qs-pts");
+    points.textContent = String("+ " + (timeDiff / 1000) + "s");       // put the time in session
+    row.appendChild(points);
 }
 
 /**

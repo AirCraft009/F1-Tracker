@@ -1,7 +1,15 @@
 
 
 // DataTypes to match the Jolpica responses
-import {Circuit, Constructor, ConstructorStanding, Driver, DriverStanding, Race} from "../generic/DataSource";
+import {
+    Circuit,
+    Constructor,
+    ConstructorStanding,
+    Driver,
+    DriverStanding,
+    Race,
+    RaceResults, Result
+} from "../generic/DataSource";
 import {checkObjectsForUndefined} from "../../util/Object-Checker";
 
 // base Types
@@ -52,6 +60,35 @@ type JolpicaRace = {
     SecondPractice: dateTime,
     ThirdPractice:  dateTime,
     Qualifying:     dateTime,
+}
+
+type JolpicaRaceResult = JolpicaRace & dateTime & {
+    Results:        JolpicaResult[]
+}
+
+
+type JolpicaResult = {
+    number:           number,
+    position:         number,
+    positionText:     string,
+    points:           number,
+    Driver:           JolpicaDriver,
+    Constructor:      JolpicaConstructor,
+    grid:             number,
+    laps:             number,
+    status:           string,
+
+    Time: {
+        millis:       number,
+        time:         string,
+    },
+    FastestLap: {
+        rank:        number,
+        lap:         number,
+        Time: {
+            time:    string
+        }
+    }
 }
 
 // Generic Response
@@ -114,6 +151,14 @@ type JolpicaRaceTable = {
     }
 }
 
+type JolpicaRaceResultTable = {
+    RaceTable: {
+        season?:        number
+        round?:         number
+        Races:          JolpicaRaceResult[]
+    }
+}
+
 
 
 // combinations
@@ -121,6 +166,7 @@ export type JolpicaDriverResponse = JolpicaResponseHeader<JolpicaDriverTable>;
 export type JolpicaDriverStandingResponse = JolpicaResponseHeader<JolpicaStandingsTable<{DriverStandings: JolpicaDriverStanding[]}>>
 export type JolpicaConstructorStandingResponse = JolpicaResponseHeader<JolpicaStandingsTable<{ConstructorStandings: JolpicaConstructorStanding[]}>>
 export type JolpicaRaceResponse =           JolpicaResponseHeader<JolpicaRaceTable>
+export type JolpicaRaceResultResponse =     JolpicaResponseHeader<JolpicaRaceResultTable>
 
 
 // Mappers - Jolpica Objects to normal
@@ -186,5 +232,32 @@ export function mapJolpicaConstructorStanding(standing: JolpicaConstructorStandi
         points:         standing.points,
         wins:           standing.wins,
         constructor:    mapJolpicaConstructor(standing.Constructor)
+    }
+}
+
+export function mapJolpicaResult(res: JolpicaResult): Result{
+    let r=  {
+        driver: mapJolpicaDriver(res.Driver),
+        teamP1: mapJolpicaConstructor(res.Constructor),
+        pos:        res.position,
+        points:     res.points,
+        grid:       res.grid,
+        laps:       res.laps,
+        status:     res.status,
+        milliTime:  0,
+    }
+
+    if(!res.Time)
+        return r
+
+    r.milliTime = res.Time.millis
+    return r;
+}
+
+export function mapJolpicaRaceResults(res: JolpicaRaceResult): RaceResults {
+    let race = mapJolpicaRace(res)
+    return {
+        race: race,
+        results: res.Results.map(mapJolpicaResult)
     }
 }

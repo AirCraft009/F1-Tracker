@@ -1,15 +1,15 @@
 // core API Logic
 // call jolpica to function as F1DataSource
 
-import {ConstructorStanding, Driver, DriverStanding, F1DataSource, Race, RaceResult} from "../generic/DataSource";
+import {ConstructorStanding, Driver, DriverStanding, F1DataSource, Race, RaceResults} from "../generic/DataSource";
 import {concatPaths} from "../../util/pathBuild";
 import {
     JolpicaConstructorStandingResponse,
     JolpicaDriverResponse,
-    JolpicaDriverStandingResponse, JolpicaRaceResponse, mapJolpicaConstructorStanding,
+    JolpicaDriverStandingResponse, JolpicaRaceResponse, JolpicaRaceResultResponse, mapJolpicaConstructorStanding,
     mapJolpicaDriver,
     mapJolpicaDriverStanding,
-    mapJolpicaRace
+    mapJolpicaRace, mapJolpicaRaceResults
 } from "./jolpicaMapper";
 
 const JolpicaBase = "https://api.jolpi.ca/ergast/f1/"
@@ -165,8 +165,20 @@ export class JolpicaF1DataSource implements  F1DataSource {
             ));
     }
 
-    getRaceResults(season: number): Promise<RaceResult[]> {
+    getRaceResults(season: number | string): Promise<RaceResults[]> {
         return Promise.resolve([]);
+    }
+
+    async getRaceResult(season: number | string, round : number | string): Promise<RaceResults> {
+        let res = await this.retryLoop(concatPaths(JolpicaBase, String(season), String(round), JolpicaF1DataSource.resultMod))
+        let rResult : JolpicaRaceResultResponse = await res.json();
+
+        let len = rResult.MRData.RaceTable.Races.length;
+        if(len != 1){
+            throw new Error("Not exactly one race-result returned on season + round query. " + len)
+        }
+
+        return mapJolpicaRaceResults(rResult.MRData.RaceTable.Races[0])
     }
 
     async getCalender(season: number): Promise<Race[]> {

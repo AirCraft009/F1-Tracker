@@ -1,12 +1,13 @@
 import {dateTime} from "../jolpica/jolpicaMapper";
 
 export interface F1DataSource {
-    getDrivers(): Promise<Driver[]>;                                         // gets all current drivers
-    getDriversInSeason(season: number | string): Promise<Driver[]>;          // gets all drivers in a season
-    getRaceResults(season: number | string): Promise<RaceResult[]>;          // gets the results in a given season
-    getDriverById(id: string): Promise<Driver>;                              // get an entire driver via ID
-    getDriverStandings(season: number | string): Promise<DriverStanding[]>;  // get the drivers ranked with points
-    getCalender(season: number): Promise<Race[]>;                            // get all races(future) in a season
+    getDrivers(): Promise<Driver[]>;                                                        // gets all current drivers
+    getDriversInSeason(season: number | string): Promise<Driver[]>;                         // gets all drivers in a season
+    getRaceResults(season: number | string): Promise<RaceResults[]>;                        // gets the results in a given season
+    getRaceResult(season: number | string, round: number | string): Promise<RaceResults>;            // gets the results in a given season
+    getDriverById(id: string): Promise<Driver>;                                             // get an entire driver via ID
+    getDriverStandings(season: number | string): Promise<DriverStanding[]>;                 // get the drivers ranked with points
+    getCalender(season: number): Promise<Race[]>;                                           // get all races(future) in a season
     getRaceByRound(season: number | string, round: number | string): Promise<Race>;
     getConstructorStandings(season: number | string): Promise<ConstructorStanding[]>
 }
@@ -42,20 +43,20 @@ export type Constructor = {
     nationality?:   string;
 }
 
-export type RaceResult = {
+export type RaceResults = {
     race: Race;
     results: Result[]
 }
 
 export type Result = {
-    driver: Driver;
-    teamP1?: Constructor;       // not enforced
-    pos:    number;
-    points: number;
-    grid:   number;
-    laps:   number;
-    status: "dns" | "dnf" | "finished" | "dnq";
-    milliTime: number;
+    driver:     Driver;
+    teamP1:    Constructor;
+    pos:        number;
+    points:     number;
+    grid:       number;
+    laps:       number;
+    status:     string;
+    milliTime:  number;
 }
 
 export type Circuit = {
