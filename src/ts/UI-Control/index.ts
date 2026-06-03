@@ -137,7 +137,7 @@ export async function setupIndex(dataSource: F1DataSource, season: number| strin
 
 
     const raceRes = await dataSource.getRaceResult(season, "last");
-    console.log(raceRes.results)
+
     let baseT = raceRes.results[0].milliTime
     const timeAppend = document.querySelector("#time-top")
     if(!timeAppend) {
@@ -147,13 +147,70 @@ export async function setupIndex(dataSource: F1DataSource, season: number| strin
     for (let i = 0; i < n; i++) {
         addDriverTime(raceRes.results[i], baseT, timeAppend)
     }
+
+
+    const calender = await dataSource.getCalender(season)
+    const calenderAppend = document.querySelector("#calender-top")
+    if(!calenderAppend) {
+        throw new Error("Calender scroll container wasn't found.")
+    }
+
+    for (let i = 0; i < calender.length; i++) {
+        addCalenderEntry(calender[i], calenderAppend, nextRace.round)
+    }
+
+
+
 }
 
+/*
+        <div class="race-chip done">
+            <div class="chip-round">Round 1</div>
+            <div class="chip-country">Australia</div>
+            <div class="chip-date">6–8 Mar 2026</div>
+        </div>
+ */
 /**
- *
- * make this structure to set times
- * Currently NOT typesafe (constructors are assumed to exist)
- *
+ * @param race the race to add
+ * @param appendElement the element to add the race to
+ * @param nextRound the number of the next round (used to highlight)
+ */
+function addCalenderEntry(race: Race, appendElement: Element, nextRound: number) {
+
+    let calenderContainer = document.createElement("div");
+    calenderContainer.setAttribute("class", "race-chip");
+    console.log(race.round);
+
+    if(nextRound == race.round) {
+        calenderContainer.classList += " next";
+    }else if((nextRound - 1) == race.round) {
+        calenderContainer.classList += " current";
+    }else if(nextRound > (race.round - 1)) {
+        calenderContainer.classList += " done";
+    }
+
+    appendElement.appendChild(calenderContainer);
+    let roundElem = document.createElement("div");
+    roundElem.setAttribute("class", "chip-round");
+    roundElem.textContent = "Round " + race.round;
+    calenderContainer.appendChild(roundElem);
+
+    let countryElem = document.createElement("div");
+    countryElem.setAttribute("class", "chip-country");
+    countryElem.textContent = race.circuit.location;
+    calenderContainer.appendChild(countryElem);
+
+
+    let dateElem = document.createElement("div");
+    dateElem.setAttribute("class", "chip-date");
+    const startDate = new Date(race.pract1.date);
+    let endDate = new Date(race.date);
+
+    dateElem.textContent = formatDayRange(startDate, endDate);
+    calenderContainer.appendChild(dateElem);
+}
+
+/*
  *                 <div class="qs-row">
  *                     <span class="qs-pos p1">1</span>
  *                     <span class="qs-dot team-mercedes"></span>
@@ -189,17 +246,13 @@ function addDriverTime(res: Result, baseT: number, appendElement: Element) {
     row.appendChild(points);
 }
 
-/**
- * create this structure from a constructorstanding
- *
+/*
  *<div class="qs-row">
  *  <span class="qs-pos p1">1</span>
  *  <span class="qs-dot team-mercedes"></span>
  *  <span class="qs-name">Mercedes</span>
  *  <span class="qs-pts">194</span>
  *</div>
- *
- *
  */
 function addConstructorStanding(constStand: ConstructorStanding, appendElement: Element){
     let row = document.createElement("div");

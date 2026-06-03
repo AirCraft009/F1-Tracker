@@ -4,10 +4,10 @@ export interface F1DataSource {
     getDrivers(): Promise<Driver[]>;                                                        // gets all current drivers
     getDriversInSeason(season: number | string): Promise<Driver[]>;                         // gets all drivers in a season
     getRaceResults(season: number | string): Promise<RaceResults[]>;                        // gets the results in a given season
-    getRaceResult(season: number | string, round: number | string): Promise<RaceResults>;            // gets the results in a given season
+    getRaceResult(season: number | string, round: number | string): Promise<RaceResults>;   // gets the results in a given season
     getDriverById(id: string): Promise<Driver>;                                             // get an entire driver via ID
     getDriverStandings(season: number | string): Promise<DriverStanding[]>;                 // get the drivers ranked with points
-    getCalender(season: number): Promise<Race[]>;                                           // get all races(future) in a season
+    getCalender(season: number | string): Promise<Race[]>;                                           // get all races(future) in a season
     getRaceByRound(season: number | string, round: number | string): Promise<Race>;
     getConstructorStandings(season: number | string): Promise<ConstructorStanding[]>
 }

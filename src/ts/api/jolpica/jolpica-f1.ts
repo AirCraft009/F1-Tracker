@@ -181,7 +181,7 @@ export class JolpicaF1DataSource implements  F1DataSource {
         return mapJolpicaRaceResults(rResult.MRData.RaceTable.Races[0])
     }
 
-    async getCalender(season: number): Promise<Race[]> {
+    async getCalender(season: number | string): Promise<Race[]> {
         let res = await this.retryLoop(concatPaths(JolpicaBase, String(season), JolpicaF1DataSource.raceMod))
         let raceRes : JolpicaRaceResponse = await res.json();
 
