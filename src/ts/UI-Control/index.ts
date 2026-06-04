@@ -1,5 +1,6 @@
 import {Constructor, ConstructorStanding, DriverStanding, F1DataSource, Race, Result} from "../api/generic/DataSource";
 import {addCircuit} from "../util/mapSvgConverter";
+import * as sea from "node:sea";
 
 // selectors
 const date_select = ".race-date-span-val"
@@ -15,6 +16,7 @@ const country_select = ".country-val"
 const circuit_name_select = ".race-circuit-name"
 const race_name_select = ".race-name-val"
 const race_round_select = ".race-round"
+const season_select = ".season-val"
 
 
 /**
@@ -51,7 +53,8 @@ export async function setupIndex(dataSource: F1DataSource, season: number| strin
     let p3          = document.querySelectorAll(p3_date_select);
     let quali       = document.querySelectorAll(qual_date_select);
     let race        = document.querySelectorAll(race_date_select);
-    let round       = document.querySelectorAll(race_round_select)
+    let round       = document.querySelectorAll(race_round_select);
+    let seasonElem  = document.querySelectorAll(season_select);
 
     if(lap.length == 0 || dist.length == 0 || turns.length == 0 || country.length == 0 || circuitName.length == 0 || raceName.length == 0 || circuitName.length == 0) {
         throw new Error("Circuit Attribute Fields weren't found.");
@@ -111,6 +114,10 @@ export async function setupIndex(dataSource: F1DataSource, season: number| strin
         round.textContent = "Round " + nextRace.round + " · " + nextRace.season;
     })
 
+    seasonElem.forEach((season) => {
+        season.textContent = String(nextRace.season)
+    })
+
 
     const driverSt = await dataSource.getDriverStandings(season)
     const standingsAppend = document.querySelector("#driver-top")
@@ -136,6 +143,7 @@ export async function setupIndex(dataSource: F1DataSource, season: number| strin
     }
 
 
+    // add the times of drivers
     const raceRes = await dataSource.getRaceResult(season, "last");
 
     let baseT = raceRes.results[0].milliTime
@@ -147,6 +155,14 @@ export async function setupIndex(dataSource: F1DataSource, season: number| strin
     for (let i = 0; i < n; i++) {
         addDriverTime(raceRes.results[i], baseT, timeAppend)
     }
+    // change the title to the last race
+
+    const timeHeader = document.querySelector("#time-header")
+    if(!timeHeader) {
+        throw new Error("Time header weren't found.")
+    }
+    timeHeader.textContent = "Latest · " + raceRes.race.name;
+
 
 
     const calender = await dataSource.getCalender(season)
