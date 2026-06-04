@@ -1,6 +1,7 @@
 import {Constructor, ConstructorStanding, DriverStanding, F1DataSource, Race, Result} from "../api/generic/DataSource";
 import {addCircuit} from "../util/mapSvgConverter";
 import * as sea from "node:sea";
+import {min} from "d3";
 
 // selectors
 const date_select = ".race-date-span-val"
@@ -125,6 +126,7 @@ export async function setupIndex(dataSource: F1DataSource, season: number| strin
         throw new Error("Driver Standings weren't found.")
     }
     // add top 5 drivers
+    let safeLength = Math.min(n, driverSt.length);
     for (let i = 0; i < n; i++) {
         addDriverStanding(driverSt[i], standingsAppend)
     }
@@ -138,6 +140,7 @@ export async function setupIndex(dataSource: F1DataSource, season: number| strin
     }
 
     // add top 5 constructors
+    safeLength = Math.min(n, constSt.length);
     for (let i = 0; i < n; i++) {
         addConstructorStanding(constSt[i], cStandingsAppend)
     }
@@ -152,7 +155,8 @@ export async function setupIndex(dataSource: F1DataSource, season: number| strin
         throw new Error("Driver time list wasn't found.")
     }
 
-    for (let i = 0; i < n; i++) {
+    safeLength = Math.min(n, raceRes.results.length);
+    for (let i = 0; i < safeLength; i++) {
         addDriverTime(raceRes.results[i], baseT, timeAppend)
     }
     // change the title to the last race
@@ -198,11 +202,11 @@ function addCalenderEntry(race: Race, appendElement: Element, nextRound: number)
     console.log(race.round);
 
     if(nextRound == race.round) {
-        calenderContainer.classList += " next";
+        calenderContainer.classList.add("next");
     }else if((nextRound - 1) == race.round) {
-        calenderContainer.classList += " current";
+        calenderContainer.classList.add("current");
     }else if(nextRound > (race.round - 1)) {
-        calenderContainer.classList += " done";
+        calenderContainer.classList.add("done");
     }
 
     appendElement.appendChild(calenderContainer);
