@@ -80,4 +80,13 @@ function buildPodium(res: DriverStanding, appendElem: Element) {
     card.appendChild(team);
 
 
+    let points = document.createElement("div");
+    points.classList.add("podium-pts");
+    points.textContent = String(res.points);
+    card.appendChild(points);
+
+    let point_label = document.createElement("div");
+    point_label.classList.add("podium-pts-label");
+    point_label.textContent = "Points"
+    card.appendChild(point_label);
 }
