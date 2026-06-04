@@ -128,6 +128,8 @@ export async function setupIndex(dataSource: F1DataSource, season: number| strin
     // add top 5 drivers
     let safeLength = Math.min(n, driverSt.length);
     for (let i = 0; i < n; i++) {
+        if(!driverSt[i])
+            continue;
         addDriverStanding(driverSt[i], standingsAppend)
     }
 
@@ -142,6 +144,8 @@ export async function setupIndex(dataSource: F1DataSource, season: number| strin
     // add top 5 constructors
     safeLength = Math.min(n, constSt.length);
     for (let i = 0; i < n; i++) {
+        if(!constSt[i])
+            continue;
         addConstructorStanding(constSt[i], cStandingsAppend)
     }
 
@@ -157,6 +161,8 @@ export async function setupIndex(dataSource: F1DataSource, season: number| strin
 
     safeLength = Math.min(n, raceRes.results.length);
     for (let i = 0; i < safeLength; i++) {
+        if(!raceRes.results[i])
+            continue;
         addDriverTime(raceRes.results[i], baseT, timeAppend)
     }
     // change the title to the last race
