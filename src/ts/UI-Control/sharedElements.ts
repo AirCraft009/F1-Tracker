@@ -1,0 +1,16 @@
+export const  elements = {
+     date_select: ".race-date-span-val",
+     race_date_select: ".race-date-val",
+     p1_date_select: ".p1-date-val",
+     p2_date_select: ".p2-date-val",
+     p3_date_select: ".p3-date-val",
+     qual_date_select: ".qual-date-val",
+     lap_select: ".lap-val",
+     dist_select: ".distance-val",
+     turn_select: ".turn-val",
+     country_select: ".country-val",
+     circuit_name_select: ".race-circuit-name",
+     race_name_select: ".race-name-val",
+     race_round_select: ".race-round",
+     season_select: ".season-val",
+}
