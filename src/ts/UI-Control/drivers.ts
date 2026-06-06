@@ -91,18 +91,22 @@ function buildFullStandingsEntry(standing: DriverStanding, appendElement: Elemen
     container.appendChild(name);
 
     let team_number = document.createElement("div")
-    name.classList.add("driver-number");
-    name.textContent = "#" + standing.driver.num + " · " + standing.driver.teamId;
+    team_number.classList.add("driver-number");
+    team_number.textContent = "#" + standing.driver.num + " · " + standing.constructor.name;
     container.appendChild(team_number);
 
     let flag = document.createElement("td")
     flag.classList.add("flag-emoji");
+    switch (standing){
+
+    }
     flag.textContent = "🇬🇧"
     row.appendChild(flag);
 
     let pts = document.createElement("td");
     pts.classList.add("pts-cell");
     pts.textContent = String(standing.points);
+    row.appendChild(pts);
 
     let barContainer = document.createElement("td")
     row.appendChild(barContainer);
@@ -118,8 +122,10 @@ function buildFullStandingsEntry(standing: DriverStanding, appendElement: Elemen
     barFill.classList.add("pts-bar-fill", "team-"+standing.driver.teamId);
     barFill.setAttribute("style", "width:"+Math.round((standing.points/maxPoints)*100)+"%");
     ptsBar.appendChild(barBg);
-    ptsBar.appendChild(barFill);
+    barBg.appendChild(barFill);
 
+    if(standing.points == maxPoints)    // first place
+        return
     let gap = document.createElement("span")
     gap.classList.add("gap-badge");
     gap.textContent = String(standing.points - maxPoints);
@@ -165,10 +171,14 @@ function buildPodium(res: DriverStanding, appendElem: Element) {
     )
     card.appendChild(name);
 
-    //TODO: add null checks
+    if(!res.driver.teamId){
+        throw new Error("TeamId isn't added on driver");
+    }
+
     let team = document.createElement("div");
     let team_color = document.createElement("span");
-    team.classList.add("podium-team", "podium-team-dot", "team-"+res.driver.teamId!);
+    team.classList.add("podium-team");
+    team_color.classList.add( "podium-team-dot", "team-"+res.driver.teamId)
     team.append(
         team_color,
         res.constructor.name
