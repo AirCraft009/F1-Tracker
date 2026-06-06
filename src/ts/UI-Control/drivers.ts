@@ -65,9 +65,10 @@ function buildFullStandingsEntry(standing: DriverStanding, appendElement: Elemen
     appendElement.appendChild(row);
 
     let pos = document.createElement("td");
-    pos.classList.add("pos-num", "p1");
+    pos.classList.add("pos-num");
     if(standing.position <= 3)
-        pos.classList.add("top3")
+        pos.classList.add("top3", "p"+standing.position);
+    pos.textContent = String(standing.position);
     row.appendChild(pos);
 
     let driverTd = document.createElement("td");
