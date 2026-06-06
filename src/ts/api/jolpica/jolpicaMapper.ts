@@ -190,6 +190,7 @@ export function mapJolpicaDriverStanding(standing: JolpicaDriverStanding): Drive
         points: standing.points,
         position: standing.position,
         wins: standing.wins,
+        constructor: mapJolpicaConstructor(standing.Constructors[0])
     }
 }
 

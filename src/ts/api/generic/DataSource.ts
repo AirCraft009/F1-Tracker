@@ -13,10 +13,11 @@ export interface F1DataSource {
 }
 
 export type DriverStanding = {
-    position: number
-    points:   number
-    wins:     number
-    driver:   Driver
+    position:       number
+    points:         number
+    wins:           number
+    driver:         Driver
+    constructor:    Constructor
 }
 
 

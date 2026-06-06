@@ -75,7 +75,7 @@ function buildPodium(res: DriverStanding, appendElem: Element) {
     team_color.classList.add("team-"+res.driver.teamId!);
     team.append(
         team_color,
-        res.driver.teamId!
+        res.constructor.name
     );
     card.appendChild(team);
 
