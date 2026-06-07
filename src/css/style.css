@@ -337,11 +337,14 @@ body::before {
 .team-mercedes  { background: #00D2BE; }
 .team-ferrari   { background: #DC0000; }
 .team-mclaren   { background: #FF8000; }
-.team-red_bull   { background: #0600EF; }
+.team-red_bull  { background: #0600EF; }
+.team-redbull   { background: #0600EF; }
+.team-rb        { background: #008bef; }
 .team-alpine    { background: #0090FF; }
 .team-haas      { background: #B6BABD; }
 .team-williams  { background: #005AFF; }
 .team-aston     { background: #006F62; }
+.team-aston_martin     { background: #006F62; }
 .team-racing-bulls { background: #6692FF; }
 .team-audi      { background: #C0C0C0; }
 .team-cadillac  { background: #E5C100; }

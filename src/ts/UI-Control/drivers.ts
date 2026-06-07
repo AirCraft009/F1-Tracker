@@ -1,9 +1,11 @@
-import {DriverStanding, F1DataSource} from "../api/generic/DataSource";
+import {DriverStanding, F1DataSource, Race} from "../api/generic/DataSource";
+import {nationalityToFlag} from "./sharedElements"
 
 const podium_select = "#podium-top"
 
 export async function setupDriver(dSource: F1DataSource, season: number | string) {
     let standings: DriverStanding[];
+
 
     try {
         standings = await dSource.getDriverStandings(season);
@@ -12,13 +14,11 @@ export async function setupDriver(dSource: F1DataSource, season: number | string
         throw new Error("Failed to get driver standings: " + e);
     }
 
-
     let podium = document.querySelector("#podium-top");
 
 
-
     if(!podium) {
-        throw new Error("couldn't find podium top");
+        throw new Error("failed to locate all elements");
     }
 
 
@@ -38,6 +38,7 @@ export async function setupDriver(dSource: F1DataSource, season: number | string
     }
 
 }
+
 
 /*
 <tr>
@@ -95,12 +96,14 @@ function buildFullStandingsEntry(standing: DriverStanding, appendElement: Elemen
     team_number.textContent = "#" + standing.driver.num + " · " + standing.constructor.name;
     container.appendChild(team_number);
 
+    if(!standing.driver.nationality)
+        throw new Error("Nationality wasn't set for the driver. Error in the request response.");
+
     let flag = document.createElement("td")
     flag.classList.add("flag-emoji");
-    switch (standing){
-
-    }
-    flag.textContent = "🇬🇧"
+    let emoji = nationalityToFlag(standing.driver.nationality!)
+    console.log(standing.driver.nationality);
+    flag.textContent = emoji
     row.appendChild(flag);
 
     let pts = document.createElement("td");
@@ -124,8 +127,9 @@ function buildFullStandingsEntry(standing: DriverStanding, appendElement: Elemen
     ptsBar.appendChild(barBg);
     barBg.appendChild(barFill);
 
-    if(standing.points == maxPoints)    // first place
+    if(standing.points == maxPoints)    // don't show the gap for first place or eq. scores (always 0)
         return
+
     let gap = document.createElement("span")
     gap.classList.add("gap-badge");
     gap.textContent = String(standing.points - maxPoints);

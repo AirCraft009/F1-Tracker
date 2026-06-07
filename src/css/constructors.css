@@ -265,6 +265,7 @@
     font-size: 0.8rem;
     color: var(--f1-grey);
     font-weight: 600;
+    text-align: right;
 }
 
 @media (max-width: 700px) {
