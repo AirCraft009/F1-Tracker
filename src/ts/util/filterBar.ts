@@ -111,6 +111,7 @@ export async function setupFilterBar(opts: FilterBarOptions): Promise<FilterStat
             state.season        = seasonSelect!.value;
             state.constructorId = null;
             state.driverId      = null;
+            state.round         = roundSelect!.value;
 
             // Reset + repopulate dependent selects
             if (constructorSelect) resetSelect(constructorSelect, "All Teams");
