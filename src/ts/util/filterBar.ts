@@ -1,10 +1,11 @@
-import { ConstructorStanding, Driver, DriverStanding, F1DataSource } from "../../api/generic/DataSource";
+import { ConstructorStanding, Driver, DriverStanding, F1DataSource } from "../api/generic/DataSource";
 
 
 export type FilterState = {
     season:        string;          // e.g. "2026" | "current"
     constructorId: string | null;   // null = all
     driverId:      string | null;   // null = all
+    round:         string
 }
 
 export type FilterChangeCallback = (state: FilterState) => void;
@@ -17,6 +18,7 @@ type FilterBarOptions = {
         season?:      boolean;      // default true
         constructor?: boolean;      // default true
         driver?:      boolean;      // default true
+        round?:       boolean;
     }
 }
 
@@ -31,6 +33,7 @@ let state: FilterState = {
     season:        "current",
     constructorId: null,
     driverId:      null,
+    round:         "next"
 };
 
 
@@ -55,6 +58,7 @@ export async function setupFilterBar(opts: FilterBarOptions): Promise<FilterStat
         season:      opts.features?.season      ?? true,
         constructor: opts.features?.constructor ?? true,
         driver:      opts.features?.driver      ?? true,
+        round:       opts.features?.round       ?? true,
     };
 
     const bar = document.createElement("div");
@@ -75,6 +79,15 @@ export async function setupFilterBar(opts: FilterBarOptions): Promise<FilterStat
         bar.appendChild(wrapSelect("Season", seasonSelect));
     }
 
+    let roundSelect: HTMLSelectElement | null = null;
+    if(features.round) {
+        roundSelect = buildSelect("filter-round", "Round")
+        populateRoundSelect(roundSelect, opts.dSource).then(_ =>
+            (
+            bar.appendChild(wrapSelect("Round", roundSelect!))
+            )
+        )
+    }
 
     let constructorSelect: HTMLSelectElement | null = null;
     if (features.constructor) {
@@ -156,7 +169,7 @@ function wrapSelect(labelText: string, sel: HTMLSelectElement): HTMLElement {
     return wrap;
 }
 
-function resetSelect(sel: HTMLSelectElement, placeholder: string): void {
+function resetSelect(sel: HTMLSelectElement, placeholder: string) {
     sel.innerHTML = "";
     const opt = document.createElement("option");
     opt.value       = "";
@@ -164,7 +177,25 @@ function resetSelect(sel: HTMLSelectElement, placeholder: string): void {
     sel.appendChild(opt);
 }
 
-function populateSeasonSelect(sel: HTMLSelectElement): void {
+async function populateRoundSelect(sel: HTMLSelectElement, dSource: F1DataSource) {
+    const currentR = document.createElement("option");
+    currentR.value = "last";
+    currentR.textContent = "Last"
+    currentR.selected = true;
+    sel.appendChild(currentR);
+
+    // All rounds that exist (count down from the last one)
+    const LRace = await dSource.getRaceByRound("current", "last")
+    const lastRound = LRace.round;
+    for (let r = lastRound; r >= 1; r--){
+        const rOpt = document.createElement("option")
+        rOpt.value = String(r);
+        rOpt.textContent = String(r);
+        sel.appendChild(rOpt);
+    }
+}
+
+function populateSeasonSelect(sel: HTMLSelectElement) {
     // "Current" option at the top
     const currentOpt = document.createElement("option");
     currentOpt.value       = "current";
