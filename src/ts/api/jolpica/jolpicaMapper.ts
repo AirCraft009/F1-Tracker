@@ -92,7 +92,8 @@ type JolpicaResult = {
 }
 
 // Generic Response
-type JolpicaResponseHeader<T> = {
+// export for parsing general pages
+export type JolpicaResponseHeader<T> = {
     MRData: {
         xmlns:  string,
         series: string,
@@ -151,7 +152,7 @@ type JolpicaRaceTable = {
     }
 }
 
-type JolpicaRaceResultTable = {
+export type JolpicaRaceResultTable = {
     RaceTable: {
         season?:        number
         round?:         number

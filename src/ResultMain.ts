@@ -11,11 +11,8 @@ window.onload = () => {
 }
 
 function clearPage() {
-    document.getElementById("calender-top")!.innerHTML       = "";
-    document.getElementById("time-top")!.innerHTML          = "";
-    document.getElementById("driver-top")!.innerHTML         = "";
-    document.getElementById("constructor-top")!.innerHTML         = "";
-    document.querySelector(".track-svg-wrap")!.innerHTML         = "";
+    document.getElementById("races-sidebar-list")!.innerHTML       = "";
+    document.getElementById("results-col")!.innerHTML          = "";
 }
 
 await setupFilterBar({

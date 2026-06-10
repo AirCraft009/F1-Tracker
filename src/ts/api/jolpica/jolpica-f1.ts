@@ -1,16 +1,26 @@
 // core API Logic
 // call jolpica to function as F1DataSource
 
-import {ConstructorStanding, Driver, DriverStanding, F1DataSource, Race, RaceResults} from "../generic/DataSource";
-import {concatPaths} from "../../util/pathBuild";
+import {
+    ConstructorStanding,
+    Driver,
+    DriverStanding,
+    F1DataSource,
+    Race,
+    RaceResults,
+    Result
+} from "../generic/DataSource";
+import {addQueries, concatPaths} from "../../util/pathBuild";
 import {
     JolpicaConstructorStandingResponse,
     JolpicaDriverResponse,
-    JolpicaDriverStandingResponse, JolpicaRaceResponse, JolpicaRaceResultResponse, mapJolpicaConstructorStanding,
+    JolpicaDriverStandingResponse, JolpicaRaceResponse, JolpicaRaceResultResponse, JolpicaRaceResultTable,
+    JolpicaResponseHeader, mapJolpicaConstructorStanding,
     mapJolpicaDriver,
     mapJolpicaDriverStanding,
     mapJolpicaRace, mapJolpicaRaceResults
 } from "./jolpicaMapper";
+import {SourceTextModule} from "node:vm";
 
 const JolpicaBase = "https://api.jolpi.ca/ergast/f1/"
 
@@ -79,6 +89,30 @@ export class JolpicaF1DataSource implements  F1DataSource {
         return res;
     }
 
+    /**
+     * gets data from the given Path and iteratively goes through all sites
+     */
+    async getAllPages<T>(Path: string): Promise<JolpicaResponseHeader<T>[]> {
+        // get all the info needed (limit, offset, total)
+        let baseRes = await this.retryLoop(addQueries(Path, "limit=100"))
+        let baseHeader: JolpicaResponseHeader<T> = await baseRes.json()
+        let baseOffset = baseHeader.MRData.offset;
+        const remainingPages = Math.ceil(baseHeader.MRData.total / baseHeader.MRData.limit);
+
+        let data : JolpicaResponseHeader<T>[] = []
+        data.push(baseHeader);
+
+        // go through all remaining pages and start at 1 (0 is obvs. alr done)
+        for (let i = 1; i < remainingPages; i++) {
+            let res = await this.retryLoop(addQueries(Path, "limit=100", "offset="+baseOffset))
+            let jsonRes : JolpicaResponseHeader<T> = await res.json()
+
+            data.push(jsonRes);
+            baseOffset = jsonRes.MRData.offset;
+        }
+        return data
+    }
+
 
     async getDriverById(id: string): Promise<Driver> {
         let res = await this.retryLoop(concatPaths(JolpicaBase, JolpicaF1DataSource.driverMod, id));
@@ -93,6 +127,8 @@ export class JolpicaF1DataSource implements  F1DataSource {
     }
 
     async getDriverStandings(season: number | string): Promise<DriverStanding[]> {
+        // expand to get even if it isn't within the same page anymore
+
         let res = await this.retryLoop(concatPaths(JolpicaBase, String(season), JolpicaF1DataSource.dStandingsMod))
         let standingRes : JolpicaDriverStandingResponse = await res.json();
 
@@ -165,8 +201,19 @@ export class JolpicaF1DataSource implements  F1DataSource {
             ));
     }
 
-    getRaceResults(season: number | string): Promise<RaceResults[]> {
-        return Promise.resolve([]);
+    async getRaceResults(season: number | string): Promise<RaceResults[]> {
+        let res = await this.getAllPages<JolpicaRaceResultTable>(concatPaths(JolpicaBase, String(season), JolpicaF1DataSource.resultMod))
+
+        // limited to 100 so each has 100 (so this is a conservative estimate)
+        let data: RaceResults[] = [];
+
+        for (let i = 0; i < res.length; i++) {
+            let table = res[i].MRData.RaceTable.Races;
+            for (let j = 0; j < table.length; j++) {
+                data.push(mapJolpicaRaceResults(table[j]));
+            }
+        }
+        return data;
     }
 
     async getRaceResult(season: number | string, round : number | string): Promise<RaceResults> {

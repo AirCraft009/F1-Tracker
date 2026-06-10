@@ -1,3 +1,6 @@
+/**
+ * Concat multiple paths while checking for path endings and normalizing the separator chars to /
+ */
 export function concatPaths(...paths: string[]): string{
     let path = ""
 
@@ -15,4 +18,23 @@ export function concatPaths(...paths: string[]): string{
     }
 
     return path;
+}
+
+/**
+ * takes a base web path and adds the given queries
+ * @param basePath the web path
+ * @param queries a query in format name=value
+ */
+export function addQueries(basePath: string, ...queries: string[]){
+    if(basePath.endsWith("?")){
+        basePath = basePath.replace("?", "");
+    }
+    if(!basePath.endsWith("/")){
+        basePath += "/";
+    }
+
+    basePath += "?";
+    basePath += queries.join("&");
+
+    return basePath;
 }

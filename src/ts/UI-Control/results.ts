@@ -16,19 +16,18 @@ export async function setupResults(dSource: F1DataSource, season: number | strin
 
     // Determine which rounds are in the past (date <= today)
     const today     = new Date();
-    const pastRaces = calendar.filter(r => new Date(r.date) <= today);
     const nextRace  = calendar.find(r => new Date(r.date) > today) ?? null;
 
     // Fetch all past race results in parallel
     let results: RaceResults[] = [];
     try {
-        results = await Promise.all(
-            pastRaces.map(r => dSource.getRaceResult(season, r.round))
-        );
+        results = await dSource.getRaceResults(season);
+        console.log(results);
     } catch (e) {
         alert("Failed to load race results: " + e);
         throw new Error("Failed to load race results: " + e);
     }
+
 
 
     const sidebar = document.querySelector("#races-sidebar-list");
