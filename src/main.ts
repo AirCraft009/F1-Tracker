@@ -1,7 +1,7 @@
 import {setupIndex} from "./ts/UI-Control";
 import {F1DataSource} from "./ts/api/generic/DataSource";
 import {JolpicaF1DataSource} from "./ts/api/jolpica/jolpica-f1";
-import {setupFilterBar} from "./ts/UI-Control/filter/filterBar";
+import {setupFilterBar} from "./ts/util/filterBar";
 import {setupDriver} from "./ts/UI-Control/drivers";
 
 export const dataSource : F1DataSource = new JolpicaF1DataSource(3, 200);
@@ -12,6 +12,10 @@ window.onload = () => {
 
 function clearPage() {
     document.getElementById("calender-top")!.innerHTML       = "";
+    document.getElementById("time-top")!.innerHTML          = "";
+    document.getElementById("driver-top")!.innerHTML         = "";
+    document.getElementById("constructor-top")!.innerHTML         = "";
+    document.querySelector(".track-svg-wrap")!.innerHTML         = "";
 }
 
 // Initial render — filter bar awaits first data load before
@@ -29,6 +33,6 @@ await setupFilterBar({
         // driverSetup ignores constructorId / driverId for now —
         // extend setupDriver to accept FilterState if you want
         // client-side filtering on top of the season re-fetch.
-        setupIndex(dataSource, state.season, 1, 5);
+        setupIndex(dataSource, state.season, state.round, 5);
     }
 });

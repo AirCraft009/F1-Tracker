@@ -1,7 +1,13 @@
 import {JolpicaF1DataSource} from "./ts/api/jolpica/jolpica-f1";
 import {setupConstructors} from "./ts/UI-Control/constructors";
-import {dataSource} from "./main";
-import {setupFilterBar} from "./ts/UI-Control/filter/filterBar";
+import {setupFilterBar} from "./ts/util/filterBar";
+import {setupDriver} from "./ts/UI-Control/drivers";
+
+const dataSource = new JolpicaF1DataSource(3, 200);
+
+window.onload = () => {
+    setupConstructors(dataSource, "current")
+}
 
 function clearPage() {
     document.getElementById("leader-banner")!.innerHTML     = "";
@@ -16,5 +22,5 @@ await setupFilterBar({
         clearPage();
         setupConstructors(dataSource, state.season);
     },
-    features: { driver: false, constructor: false }  // constructor page: season only
+    features: { driver: false, constructor: false, round: false}  // constructor page: season only
 });

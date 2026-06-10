@@ -1,6 +1,6 @@
 import {dataSource} from "./main";
 import {setupDriver} from "./ts/UI-Control/drivers";
-import {setupFilterBar} from "./ts/UI-Control/filter/filterBar";
+import {setupFilterBar} from "./ts/util/filterBar";
 
 window.onload = () => {
     setupDriver(dataSource, "current")
