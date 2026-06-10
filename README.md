@@ -6,13 +6,13 @@
 ### Init
 
 ```powershell
+# install all dependencies
 npm install
 ```
 
 ### Vite
 ```powershell
-npm create vite@lates
-npm install
+npm install vite
 ```
 ### Run Vite
 ````powershell
