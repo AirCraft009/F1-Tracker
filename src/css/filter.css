@@ -1,0 +1,115 @@
+/* ========================================
+   FILTER BAR — F1 Tracker
+   Import alongside style.css on every page
+   ======================================== */
+
+/* ---------- Bar container ---------- */
+.filter-bar {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 1rem;
+    background: var(--f1-card);
+    border: 1px solid var(--f1-border);
+    border-left: 3px solid var(--f1-red);
+    border-radius: 4px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 2rem;
+}
+
+/* "Filter" label on the left */
+.filter-label {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--f1-red);
+    padding-bottom: 0.35rem;   /* aligns with select bottom edge */
+    flex-shrink: 0;
+    margin-right: 0.25rem;
+}
+
+/* ---------- Individual group (label + select) ---------- */
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    flex: 1 1 160px;
+    min-width: 140px;
+    max-width: 260px;
+}
+
+.filter-group-label {
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--f1-grey);
+}
+
+/* ---------- Select element ---------- */
+.filter-select {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    background-color: var(--f1-card-2);
+    color: var(--f1-white);
+    border: 1px solid var(--f1-border);
+    border-radius: 3px;
+    padding: 0.5rem 2.2rem 0.5rem 0.75rem;
+    font-family: var(--font-display);
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: border-color 0.15s, background-color 0.15s;
+
+    /* Custom caret via background SVG */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8a9a' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+}
+
+.filter-select:hover {
+    border-color: var(--f1-grey);
+    background-color: #28283a;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: var(--f1-red);
+    background-color: #28283a;
+}
+
+/* Option elements — limited browser styling possible */
+.filter-select option {
+    background: var(--f1-card-2);
+    color: var(--f1-white);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+    .filter-bar {
+        gap: 0.75rem;
+        padding: 0.85rem 1rem;
+    }
+
+    .filter-group {
+        flex: 1 1 120px;
+        min-width: 110px;
+    }
+
+    .filter-label {
+        width: 100%;
+        padding-bottom: 0;
+    }
+}
+
+@media (max-width: 520px) {
+    .filter-group {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+}
