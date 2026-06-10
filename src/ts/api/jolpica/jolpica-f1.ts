@@ -96,19 +96,19 @@ export class JolpicaF1DataSource implements  F1DataSource {
         // get all the info needed (limit, offset, total)
         let baseRes = await this.retryLoop(addQueries(Path, "limit=100"))
         let baseHeader: JolpicaResponseHeader<T> = await baseRes.json()
-        let baseOffset = baseHeader.MRData.offset;
-        const remainingPages = Math.ceil(baseHeader.MRData.total / baseHeader.MRData.limit);
+        let baseLimit = baseHeader.MRData.limit;
+        const remainingPages = Math.ceil(baseHeader.MRData.total / baseLimit);
+        console.log(remainingPages)
 
         let data : JolpicaResponseHeader<T>[] = []
         data.push(baseHeader);
 
         // go through all remaining pages and start at 1 (0 is obvs. alr done)
         for (let i = 1; i < remainingPages; i++) {
-            let res = await this.retryLoop(addQueries(Path, "limit=100", "offset="+baseOffset))
+            let res = await this.retryLoop(addQueries(Path, "limit=100", "offset="+(baseLimit * i)))
             let jsonRes : JolpicaResponseHeader<T> = await res.json()
 
             data.push(jsonRes);
-            baseOffset = jsonRes.MRData.offset;
         }
         return data
     }
@@ -202,17 +202,42 @@ export class JolpicaF1DataSource implements  F1DataSource {
     }
 
     async getRaceResults(season: number | string): Promise<RaceResults[]> {
-        let res = await this.getAllPages<JolpicaRaceResultTable>(concatPaths(JolpicaBase, String(season), JolpicaF1DataSource.resultMod))
+        const res = await this.getAllPages<JolpicaRaceResultTable>(
+            concatPaths(
+                JolpicaBase,
+                String(season),
+                JolpicaF1DataSource.resultMod
+            )
+        );
 
-        // limited to 100 so each has 100 (so this is a conservative estimate)
-        let data: RaceResults[] = [];
+        const races = new Map<string, RaceResults>();
 
         for (let i = 0; i < res.length; i++) {
-            let table = res[i].MRData.RaceTable.Races;
+            const table = res[i].MRData.RaceTable.Races;
+
             for (let j = 0; j < table.length; j++) {
-                data.push(mapJolpicaRaceResults(table[j]));
+                const race = table[j];
+                const key = `${race.season}-${race.round}`;
+
+                const mapped = mapJolpicaRaceResults(race);
+
+                const existing = races.get(key);
+
+                if (!existing) {
+                    races.set(key, mapped);
+                    continue;
+                }
+
+                existing.results.push(...mapped.results);
             }
         }
+
+        const data = Array.from(races.values());
+
+        for (const race of data) {
+            race.results.sort((a, b) => a.pos - b.pos);
+        }
+
         return data;
     }
 
