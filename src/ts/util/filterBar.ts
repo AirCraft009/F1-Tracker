@@ -82,11 +82,8 @@ export async function setupFilterBar(opts: FilterBarOptions): Promise<FilterStat
     let roundSelect: HTMLSelectElement | null = null;
     if(features.round) {
         roundSelect = buildSelect("filter-round", "Round")
-        populateRoundSelect(roundSelect, opts.dSource).then(_ =>
-            (
-            bar.appendChild(wrapSelect("Round", roundSelect!))
-            )
-        )
+        bar.appendChild(wrapSelect("Round", roundSelect!))
+
     }
 
     let constructorSelect: HTMLSelectElement | null = null;
@@ -102,7 +99,7 @@ export async function setupFilterBar(opts: FilterBarOptions): Promise<FilterStat
     }
 
     // Populate team + driver selects from initial data fetch
-    await populateDynamicSelects(opts.dSource, state.season, constructorSelect, driverSelect);
+    await populateDynamicSelects(opts.dSource, state.season, constructorSelect, driverSelect, roundSelect);
 
 
 
@@ -111,13 +108,13 @@ export async function setupFilterBar(opts: FilterBarOptions): Promise<FilterStat
             state.season        = seasonSelect!.value;
             state.constructorId = null;
             state.driverId      = null;
-            state.round         = roundSelect!.value;
+            state.round         = "";
 
             // Reset + repopulate dependent selects
             if (constructorSelect) resetSelect(constructorSelect, "All Teams");
             if (driverSelect)      resetSelect(driverSelect,      "All Drivers");
 
-            await populateDynamicSelects(opts.dSource, state.season, constructorSelect, driverSelect);
+            await populateDynamicSelects(opts.dSource, state.season, constructorSelect, driverSelect, roundSelect);
             opts.onChange({ ...state });
         });
     }
@@ -132,6 +129,13 @@ export async function setupFilterBar(opts: FilterBarOptions): Promise<FilterStat
     if (driverSelect) {
         driverSelect.addEventListener("change", () => {
             state.driverId = driverSelect!.value || null;
+            opts.onChange({ ...state });
+        });
+    }
+
+    if (roundSelect) {
+        roundSelect.addEventListener("change", () => {
+            state.round = roundSelect!.value;
             opts.onChange({ ...state });
         });
     }
@@ -178,24 +182,6 @@ function resetSelect(sel: HTMLSelectElement, placeholder: string) {
     sel.appendChild(opt);
 }
 
-async function populateRoundSelect(sel: HTMLSelectElement, dSource: F1DataSource) {
-    const currentR = document.createElement("option");
-    currentR.value = "last";
-    currentR.textContent = "Last"
-    currentR.selected = true;
-    sel.appendChild(currentR);
-
-    // All rounds that exist (count down from the last one)
-    const LRace = await dSource.getRaceByRound("current", "last")
-    const lastRound = LRace.round;
-    for (let r = lastRound; r >= 1; r--){
-        const rOpt = document.createElement("option")
-        rOpt.value = String(r);
-        rOpt.textContent = String(r);
-        sel.appendChild(rOpt);
-    }
-}
-
 function populateSeasonSelect(sel: HTMLSelectElement) {
     // "Current" option at the top
     const currentOpt = document.createElement("option");
@@ -219,10 +205,11 @@ function populateSeasonSelect(sel: HTMLSelectElement) {
 // a failure in one doesn't block the other.
 
 async function populateDynamicSelects(
-    dSource:           F1DataSource,
-    season:            string,
-    constructorSelect: HTMLSelectElement | null,
-    driverSelect:      HTMLSelectElement | null,
+    dSource:            F1DataSource,
+    season:             string,
+    constructorSelect:  HTMLSelectElement | null,
+    driverSelect:       HTMLSelectElement | null,
+    roundSelect:        HTMLSelectElement | null,
 ): Promise<void> {
 
     const tasks: Promise<void>[] = [];
@@ -259,6 +246,29 @@ async function populateDynamicSelects(
                     console.error("filterBar: failed to load drivers", e);
                 })
         );
+    }
+
+    if(roundSelect) {
+        roundSelect.innerHTML = "";
+
+        const currentR = document.createElement("option");
+        currentR.value = "next";
+        currentR.textContent = "Next"
+        currentR.selected = true;
+        roundSelect.appendChild(currentR);
+
+        tasks.push(
+            // All rounds that exist (count down from the last one)
+            dSource.getRaceByRound(season, "last").then((race) => {
+                const lastRound = race.round;
+                for (let r = lastRound; r >= 1; r--){
+                    const rOpt = document.createElement("option")
+                    rOpt.value = String(r);
+                    rOpt.textContent = String(r);
+                    roundSelect.appendChild(rOpt);
+                }
+            })
+        )
     }
 
     await Promise.all(tasks);

@@ -1,7 +1,9 @@
-import {dataSource} from "./main";
 import {setupDriver} from "./ts/UI-Control/drivers";
 import {setupFilterBar} from "./ts/util/filterBar";
+import {F1DataSource} from "./ts/api/generic/DataSource";
+import {JolpicaF1DataSource} from "./ts/api/jolpica/jolpica-f1";
 
+const dataSource : F1DataSource = new JolpicaF1DataSource(3, 200);
 window.onload = () => {
     setupDriver(dataSource, "current")
 }
@@ -21,6 +23,7 @@ await setupFilterBar({
         driver: false,
         season: true,
         constructor: false,
+        round: false,
     },
     onChange: (state) => {
         clearPage();

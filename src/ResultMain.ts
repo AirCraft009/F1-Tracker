@@ -1,12 +1,13 @@
-import {setupIndex} from "./ts/UI-Control";
 import {F1DataSource} from "./ts/api/generic/DataSource";
 import {JolpicaF1DataSource} from "./ts/api/jolpica/jolpica-f1";
+import {setupIndex} from "./ts/UI-Control";
 import {setupFilterBar} from "./ts/util/filterBar";
+import {setupResults} from "./ts/UI-Control/results";
 
 const dataSource : F1DataSource = new JolpicaF1DataSource(3, 200);
 
 window.onload = () => {
-    setupIndex(dataSource, "current", "next", 5).then(_ => {});
+    setupResults(dataSource, "current").then(_ => {});
 }
 
 function clearPage() {
@@ -17,7 +18,6 @@ function clearPage() {
     document.querySelector(".track-svg-wrap")!.innerHTML         = "";
 }
 
-
 await setupFilterBar({
     dSource:  dataSource,
     mountId:  "filter-bar",
@@ -25,9 +25,11 @@ await setupFilterBar({
         driver: false,
         season: true,
         constructor: false,
+        round: false,
     },
     onChange: (state) => {
         clearPage();
-        setupIndex(dataSource, state.season, state.round, 5);
+
+        setupResults(dataSource, state.season);
     }
 });

@@ -42,70 +42,73 @@
     <div class="results-layout">
 
         <!-- Sidebar nav -->
-        <div class="races-sidebar">
+        <div class="races-sidebar" id="races-sidebar-list">
             <div class="races-sidebar-header">Race Calendar</div>
 
-            <div class="race-nav-item active">
-                <span class="rni-dot done"></span>
-                <span class="rni-round">R1</span>
-                <div class="rni-country">Australia</div>
-                <div class="rni-winner">Russell</div>
-            </div>
-            <div class="race-nav-item">
-                <span class="rni-dot done"></span>
-                <span class="rni-round">R2</span>
-                <div class="rni-country">China</div>
-                <div class="rni-winner">Antonelli</div>
-            </div>
-            <div class="race-nav-item">
-                <span class="rni-dot done"></span>
-                <span class="rni-round">R3</span>
-                <div class="rni-country">Japan</div>
-                <div class="rni-winner">Antonelli</div>
-            </div>
-            <div class="race-nav-item">
-                <span class="rni-dot done"></span>
-                <span class="rni-round">R4</span>
-                <div class="rni-country">Miami</div>
-                <div class="rni-winner">Antonelli</div>
-            </div>
-            <div class="race-nav-item">
-                <span class="rni-dot live"></span>
-                <span class="rni-round">R5</span>
-                <div class="rni-country">Canada</div>
-                <div class="rni-winner">LIVE</div>
-            </div>
-            <div class="race-nav-item future">
-                <span class="rni-dot future"></span>
-                <span class="rni-round">R6</span>
-                <div class="rni-country">Monaco</div>
-                <div class="rni-winner">5–7 Jun</div>
-            </div>
-            <div class="race-nav-item future">
-                <span class="rni-dot future"></span>
-                <span class="rni-round">R7</span>
-                <div class="rni-country">Spain</div>
-                <div class="rni-winner">12–14 Jun</div>
-            </div>
-            <div class="race-nav-item future">
-                <span class="rni-dot future"></span>
-                <span class="rni-round">R8</span>
-                <div class="rni-country">Austria</div>
-                <div class="rni-winner">26–28 Jun</div>
-            </div>
-            <div class="race-nav-item future">
-                <span class="rni-dot future"></span>
-                <span class="rni-round">R9</span>
-                <div class="rni-country">Britain</div>
-                <div class="rni-winner">3–5 Jul</div>
-            </div>
-            <div class="race-nav-item future">
-                <span class="rni-dot future"></span>
-                <span class="rni-round">…</span>
-                <div class="rni-country">+13 Rounds</div>
-                <div class="rni-winner">—</div>
-            </div>
+<!--            <div class="race-nav-item active">-->
+<!--                <span class="rni-dot done"></span>-->
+<!--                <span class="rni-round">R1</span>-->
+<!--                <div class="rni-country">Australia</div>-->
+<!--                <div class="rni-winner">Russell</div>-->
+<!--            </div>-->
+<!--            <div class="race-nav-item">-->
+<!--                <span class="rni-dot done"></span>-->
+<!--                <span class="rni-round">R2</span>-->
+<!--                <div class="rni-country">China</div>-->
+<!--                <div class="rni-winner">Antonelli</div>-->
+<!--            </div>-->
+<!--            <div class="race-nav-item">-->
+<!--                <span class="rni-dot done"></span>-->
+<!--                <span class="rni-round">R3</span>-->
+<!--                <div class="rni-country">Japan</div>-->
+<!--                <div class="rni-winner">Antonelli</div>-->
+<!--            </div>-->
+<!--            <div class="race-nav-item">-->
+<!--                <span class="rni-dot done"></span>-->
+<!--                <span class="rni-round">R4</span>-->
+<!--                <div class="rni-country">Miami</div>-->
+<!--                <div class="rni-winner">Antonelli</div>-->
+<!--            </div>-->
+<!--            <div class="race-nav-item">-->
+<!--                <span class="rni-dot live"></span>-->
+<!--                <span class="rni-round">R5</span>-->
+<!--                <div class="rni-country">Canada</div>-->
+<!--                <div class="rni-winner">LIVE</div>-->
+<!--            </div>-->
+<!--            <div class="race-nav-item future">-->
+<!--                <span class="rni-dot future"></span>-->
+<!--                <span class="rni-round">R6</span>-->
+<!--                <div class="rni-country">Monaco</div>-->
+<!--                <div class="rni-winner">5–7 Jun</div>-->
+<!--            </div>-->
+<!--            <div class="race-nav-item future">-->
+<!--                <span class="rni-dot future"></span>-->
+<!--                <span class="rni-round">R7</span>-->
+<!--                <div class="rni-country">Spain</div>-->
+<!--                <div class="rni-winner">12–14 Jun</div>-->
+<!--            </div>-->
+<!--            <div class="race-nav-item future">-->
+<!--                <span class="rni-dot future"></span>-->
+<!--                <span class="rni-round">R8</span>-->
+<!--                <div class="rni-country">Austria</div>-->
+<!--                <div class="rni-winner">26–28 Jun</div>-->
+<!--            </div>-->
+<!--            <div class="race-nav-item future">-->
+<!--                <span class="rni-dot future"></span>-->
+<!--                <span class="rni-round">R9</span>-->
+<!--                <div class="rni-country">Britain</div>-->
+<!--                <div class="rni-winner">3–5 Jul</div>-->
+<!--            </div>-->
+<!--            <div class="race-nav-item future">-->
+<!--                <span class="rni-dot future"></span>-->
+<!--                <span class="rni-round">…</span>-->
+<!--                <div class="rni-country">+13 Rounds</div>-->
+<!--                <div class="rni-winner">—</div>-->
+<!--            </div>-->
+
+            <div id="filter-bar"></div>
         </div>
+
 
         <!-- Main results column -->
         <div>
@@ -719,5 +722,6 @@
     F1 Tracker · 2026 FIA Formula 1 World Championship · Race Results through Round 5
 </footer>
 
+<script type="module" src="../ResultMain.ts"></script>
 </body>
 </html>

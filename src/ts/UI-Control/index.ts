@@ -40,7 +40,7 @@ export async function setupIndex(dataSource: F1DataSource, season: number| strin
         throw new Error("No next race found.");
     }
 
-    console.log("Loading circuit: " + nextRace.circuit.name);
+    console.log("Loading circuit: " + nextRace.circuit.id);
     console.log("getting HTML elements")
     let lap         = document.querySelectorAll(lap_select);
     let dist        = document.querySelectorAll(dist_select);
@@ -125,7 +125,8 @@ export async function setupIndex(dataSource: F1DataSource, season: number| strin
     if(!standingsAppend) {
         throw new Error("Driver Standings weren't found.")
     }
-    // add top 5 drivers
+
+
     let safeLength = Math.min(n, driverSt.length);
     for (let i = 0; i < n; i++) {
         if(!driverSt[i])
@@ -141,7 +142,6 @@ export async function setupIndex(dataSource: F1DataSource, season: number| strin
         throw new Error("Driver Standings weren't found.")
     }
 
-    // add top 5 constructors
     safeLength = Math.min(n, constSt.length);
     for (let i = 0; i < n; i++) {
         if(!constSt[i])
@@ -150,7 +150,6 @@ export async function setupIndex(dataSource: F1DataSource, season: number| strin
     }
 
 
-    // add the times of drivers
     const raceRes = await dataSource.getRaceResult(season, "last");
 
     let baseT = raceRes.results[0].milliTime
@@ -165,7 +164,6 @@ export async function setupIndex(dataSource: F1DataSource, season: number| strin
             continue;
         addDriverTime(raceRes.results[i], baseT, timeAppend)
     }
-    // change the title to the last race
 
     const timeHeader = document.querySelector("#time-header")
     if(!timeHeader) {

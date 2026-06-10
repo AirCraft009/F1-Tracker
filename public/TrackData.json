@@ -240,7 +240,7 @@
     "geojson": "/bacinger-f1-circuits/mc-1929.geojson"
   },
   {
-    "circuitId": "mexico_city",
+    "circuitId": "rodriguez",
     "name": "Autódromo Hermanos Rodríguez",
     "country": "Mexico",
     "city": "Mexico City",
@@ -320,7 +320,7 @@
     "geojson": "/bacinger-f1-circuits/sa-2021.geojson"
   },
   {
-    "circuitId": "singapore",
+    "circuitId": "marina_bay",
     "name": "Marina Bay Street Circuit",
     "country": "Singapore",
     "city": "Singapore",
