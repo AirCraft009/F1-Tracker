@@ -1,7 +1,6 @@
 import {JolpicaF1DataSource} from "./ts/api/jolpica/jolpica-f1";
 import {setupConstructors} from "./ts/UI-Control/constructors";
 import {setupFilterBar} from "./ts/util/filterBar";
-import {setupDriver} from "./ts/UI-Control/drivers";
 
 const dataSource = new JolpicaF1DataSource(3, 200);
 
