@@ -167,7 +167,7 @@ function buildConstructorCard(
     appendElem.appendChild(card);
 
     const accent = document.createElement("span");
-    accent.classList.add("cc-accent", "team-" + standing.constructor.constructorId);
+    accent.classList.add("cc-accent", "team-general", "team-" + standing.constructor.constructorId);
     card.appendChild(accent);
 
     const posBg = document.createElement("span");
@@ -223,7 +223,7 @@ function buildConstructorCard(
     card.appendChild(barWrap);
 
     const barFill = document.createElement("div");
-    barFill.classList.add("cc-bar-fill", "team-" + standing.constructor.constructorId);
+    barFill.classList.add("cc-bar-fill", "team-general", "team-" + standing.constructor.constructorId);
     const pct = maxPoints > 0 ? Math.round((standing.points / maxPoints) * 100) : 0;
     barFill.setAttribute("style", "width:" + pct + "%");
     barWrap.appendChild(barFill);
@@ -282,7 +282,7 @@ function buildTableRow(
     nameTd.appendChild(cell);
 
     const bar = document.createElement("span");
-    bar.classList.add("constructor-bar", "team-" + standing.constructor.constructorId);
+    bar.classList.add("constructor-bar", "team-general", "team-" + standing.constructor.constructorId);
     cell.appendChild(bar);
 
     const textBlock = document.createElement("div");

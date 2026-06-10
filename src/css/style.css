@@ -334,6 +334,8 @@ body::before {
 }
 
 /* ---------- Team Colors ---------- */
+/* team-general is at the top (weakest)*/
+.team-general { background: #ff87f0; }
 .team-mercedes  { background: #00D2BE; }
 .team-ferrari   { background: #DC0000; }
 .team-mclaren   { background: #FF8000; }
@@ -348,6 +350,7 @@ body::before {
 .team-racing-bulls { background: #6692FF; }
 .team-audi      { background: #C0C0C0; }
 .team-cadillac  { background: #E5C100; }
+.team-undefined { background: #75cd9f; }
 
 svg {
     overflow: visible;
