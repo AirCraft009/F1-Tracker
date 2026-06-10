@@ -25,6 +25,7 @@ await setupFilterBar({
         driver: false,
         season: true,
         constructor: false,
+        round: true,
     },
     onChange: (state) => {
         clearPage();

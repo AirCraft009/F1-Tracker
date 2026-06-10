@@ -203,7 +203,6 @@ function addCalenderEntry(race: Race, appendElement: Element, nextRound: number)
 
     let calenderContainer = document.createElement("div");
     calenderContainer.setAttribute("class", "race-chip");
-    console.log(race.round);
 
     if(nextRound == race.round) {
         calenderContainer.classList.add("next");
@@ -255,7 +254,6 @@ function addDriverTime(res: Result, baseT: number, appendElement: Element) {
     row.appendChild(pos);
 
     let dot = document.createElement("span");
-    console.log(res.teamP1.constructorId)
     dot.setAttribute("class", "qs-dot team-"+res.teamP1.constructorId);
     row.appendChild(dot);
 
@@ -289,7 +287,6 @@ function addConstructorStanding(constStand: ConstructorStanding, appendElement: 
     row.appendChild(pos);
 
     let dot = document.createElement("span");
-    console.log(constStand.constructor.constructorId)
     dot.setAttribute("class", "qs-dot team-"+constStand.constructor.constructorId);
     row.appendChild(dot);
 
@@ -326,7 +323,6 @@ function addDriverStanding(standing: DriverStanding, appendElement: Element) {
     row.appendChild(pos);
 
     let dot = document.createElement("span");
-    console.log(standing.driver.teamId)
     dot.setAttribute("class", "qs-dot team-"+standing.driver.teamId);
     row.appendChild(dot);
 

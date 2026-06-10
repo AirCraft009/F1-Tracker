@@ -108,7 +108,7 @@ export async function setupFilterBar(opts: FilterBarOptions): Promise<FilterStat
             state.season        = seasonSelect!.value;
             state.constructorId = null;
             state.driverId      = null;
-            state.round         = "";
+            state.round         = roundSelect?.value || "next";
 
             // Reset + repopulate dependent selects
             if (constructorSelect) resetSelect(constructorSelect, "All Teams");
@@ -135,7 +135,7 @@ export async function setupFilterBar(opts: FilterBarOptions): Promise<FilterStat
 
     if (roundSelect) {
         roundSelect.addEventListener("change", () => {
-            state.round = roundSelect!.value;
+            state.round = roundSelect!.value || "next";
             opts.onChange({ ...state });
         });
     }
